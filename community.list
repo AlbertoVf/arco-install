@@ -30,6 +30,7 @@ krita
 libreoffice-fresh-es
 linux-headers
 lmms
+lyx
 megasync-bin
 meld
 moc
@@ -46,7 +47,6 @@ qbittorrent
 qtile
 samba
 snapd
-speedtest-cli
 spotify
 telegram-desktop
 timeshift
@@ -54,6 +54,7 @@ tint2
 tldr
 tor
 tor-browser
+traceroute
 ufw
 virtualbox
 visual-studio-code-bin

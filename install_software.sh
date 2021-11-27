@@ -24,7 +24,7 @@ install_community() {
 }
 
 install_fonts() {
-  info_instalation "Installing fonts.list"; fonts=($(cat fonts.list))
+  info_instalation "Installing fonts"; fonts=($(cat font.list))
   for name in "${fonts[@]}"; do
     if pacman -Qi $name &> /dev/null; then
       is_installed $name
@@ -35,7 +35,7 @@ install_fonts() {
 }
 
 install_snap() {
-  info_instalation "Installing snap.list"; snaps=($(cat snaps.list))
+  info_instalation "Installing snaps"; snaps=($(cat snap.list))
   sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap
   for name in "${snaps[@]}" ; do
     if pacman -Qi $name &> /dev/null; then
@@ -47,10 +47,10 @@ install_snap() {
 }
 
 install_aur() {
-  info_instalation "Installing aur.list"; aur=($(cat aur.list))
-  mkdir ~/.cache/paru/clone
+  info_instalation "Installing aur"; aur=($(cat aur.list))
+  mkdir ~/aur
   for name in "${aur[@]}" ; do
-    cd ~/.cache/paru/clone || exit;
+    cd ~/aur || exit;
     if pacman -Qi $name &> /dev/null; then
       is_installed $name
     else
@@ -61,13 +61,24 @@ install_aur() {
 }
 
 install_lang() {
-  info_instalation "Installing lang.list"; lang=($(cat lang.list))
+  info_instalation "Installing lang"; lang=($(cat lang.list))
   for name in "${lang[@]}" ; do
     if pacman -Qi $name &> /dev/null; then
       is_installed $name
     else
       is_not_installed $name
       sudo pacman -Sy --noconfirm --needed $name
+    fi
+  done
+}
+
+install_themes() {
+  info_instalation "Installing icons/themescursor"; fonts=($(cat theme.list))
+  for name in "${fonts[@]}"; do
+    if pacman -Qi $name &> /dev/null; then
+      is_installed $name
+    else
+      is_not_installed $name;paru $name
     fi
   done
 }
