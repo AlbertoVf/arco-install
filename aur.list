@@ -1,9 +1,10 @@
+audacium-git
 balena-etcher
 brave-bin
 cpu-x
 everdo
 fd-git
-flat-remix
+flat-remix-gtk
 font-manager-git
 megasync
 nerd-fonts-anonymous-pro
@@ -33,6 +34,6 @@ tor-browser
 typora
 update-grub
 visual-studio-code-bin
-vysor-bin
+vysor-git
 zeal
 zeit-git

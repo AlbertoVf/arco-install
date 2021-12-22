@@ -52,14 +52,6 @@ install_snap() {
   done
 }
 
-install_lang() {
-  info_instalation "Installing lang"; lang=($(cat lang.list))
-  for name in "${lang[@]}" ; do
-    if pacman -Qi $name &> /dev/null; then
-      is_installed $name
-    else
-      is_not_installed $name
-      sudo pacman -Sy --noconfirm --needed $name
-    fi
-  done
-}
+install_community
+install_aur
+install_snap
