@@ -7,7 +7,6 @@ Install software in your Arcolinux distribution
 - community: Software in the community repository
 - aur: Include Aur packages
 - snap: Software in the Snap store
-- lang: Install languages support
 
 ```bash
 # Update mirrorlist

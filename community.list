@@ -35,7 +35,6 @@ krita
 libreoffice-fresh-es
 linux-headers
 lmms
-lyx
 meld
 moc
 mpv
@@ -71,3 +70,5 @@ xclip
 xfce4-clipman-plugin
 youtube-dl
 openshot
+texstudio
+texlive-most
