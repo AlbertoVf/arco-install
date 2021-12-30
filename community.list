@@ -1,6 +1,6 @@
 alacritty
 arcolinux-plank-git
-plank
+bat
 bitwarden
 bleachbit
 blender
@@ -35,7 +35,6 @@ krita
 libreoffice-fresh-es
 linux-headers
 lmms
-lyx
 meld
 moc
 mpv
@@ -44,11 +43,13 @@ nodejs
 npm
 obs-studio
 onionshare
+openshot
 papirus-icon-theme
 paru
 pdftk
 php
 php-apache
+plank
 pragha
 pycharm-community-edition
 python-django
@@ -59,7 +60,10 @@ qtile
 ranger
 remmina
 samba
+simple-scan
 telegram-desktop
+texlive-most
+texstudio
 tk
 tldr
 tor
@@ -70,4 +74,3 @@ vlc
 xclip
 xfce4-clipman-plugin
 youtube-dl
-openshot
