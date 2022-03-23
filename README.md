@@ -9,16 +9,8 @@ Install software in your Arcolinux distribution
 - snap: Software in the Snap store
 
 ```bash
-# Update mirrorlist
-sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
-# Update packages
-sudo pacman -Sy
-```
-
-```bash
-# Install software
-sh install_software.sh
-sh extra.sh
+# run as superuser
+sudo python main.py
 ```
 
 ```bash
