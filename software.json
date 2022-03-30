@@ -4,6 +4,7 @@
   "software": {
     "snap": ["citra-emu"],
     "aur": [
+      "lazy-git",
       "audacium-git",
       "bottles",
       "brave-bin",
@@ -37,6 +38,7 @@
       "speed-test",
       "spotify",
       "stacer-bin",
+      "system-config-users",
       "thunar-megasync-bin",
       "timeshift",
       "tor-browser",
@@ -50,6 +52,8 @@
       "zoxide-git"
     ],
     "community": [
+      "kitty",
+      "peco",
       "alacritty",
       "arcolinux-plank-git",
       "bat",
@@ -89,6 +93,7 @@
       "moc",
       "mpv",
       "neovim",
+      "nmap",
       "nodejs",
       "npm",
       "obs-studio",
