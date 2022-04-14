@@ -11,6 +11,26 @@ purple = "\033[1;35m"
 white = "\033[1;37m"
 
 
+def root(): print("\033[1;31m[!] Es necesario ser root")
+
+
+def help():
+    print("""
+    -h, --help : Muestra esta ayuda
+    -a, --aur: Instala el software desde Arch User Repository
+    -e, --extra: Instala software extra
+    -s, --snap: Instala paquetes snap
+    -c, --comunnity: Instala el software desde repositorios oficiales
+    -d, --distro: Instala software propio de la distribucion
+    -t, --total: Instala todo es software
+    """)
+
+
+def update():
+    os.system(
+        'sudo reflector -f 30 -l 30 --number 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Sy')
+
+
 def is_installed(package: str):
     return os.system(f'pacman -Q {package}') == 0
 
@@ -30,7 +50,7 @@ def init_installation(msg: str):
     print(f'{yellow}{msg}\n{white}')
 
 
-def menu():
+def name():
     print(f"""{yellow}
     _                 ___           _        _ _
    / \   _ __ ___ ___|_ _|_ __  ___| |_ __ _| | |
@@ -38,6 +58,10 @@ def menu():
  / ___ \| | | (_| (_) | || | | \__ \ || (_| | | |
 /_/   \_\_|  \___\___/___|_| |_|___/\__\__,_|_|_|
 """)
+
+
+def menu():
+    name()
     print(f"""{purple} [1] Instalacion completa\n [2] Instalacion de paquetes community\n [3] Instalacion de paquetes aur\n [4] Instalacion de paquetes snap\n [5] Instalacion de paquetes extra\n [6] Salir\n """)
 
     option = input(f"\n{blue}[*] Seleccione una opcion: ")
