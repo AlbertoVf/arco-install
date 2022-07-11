@@ -11,6 +11,7 @@ purple = "\033[1;35m"
 white = "\033[1;37m"
 
 
+installation_command = "sudo pacman"
 def root(): print("\033[1;31m[!] Es necesario ser root")
 
 
@@ -27,12 +28,13 @@ def help():
 
 
 def update():
+    print("Actualizando repositorios")
     os.system(
         'sudo reflector -f 30 -l 30 --number 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Sy')
 
 
 def is_installed(package: str):
-    return os.system(f'pacman -Q {package}') == 0
+    return os.system(f'{installation_command} -Q {package}') == 0
 
 
 def read_software(type: str):
@@ -87,6 +89,7 @@ def menu():
 
 def aur():
     init_installation("Instalando paquetes de AUR...")
+    os.system("mkdir -p repos; cd repos")
     for i in read_software('aur'):
         if is_installed(i):
             print(f'{green}[-] {i} ya esta instalado')
@@ -118,7 +121,7 @@ def community(software="community"):
             print(f'{green}[-] {i} ya esta instalado')
         else:
             print(f'{yellow}[+] Instalando {i}')
-            os.system(f'pacman -Sy --noconfirm --needed {i}')
+            os.system(f'{installation_command} -Sy --noconfirm --needed {i}')
     instalacion_ok()
 
 
