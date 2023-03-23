@@ -5,7 +5,7 @@ source src/installer.sh
 
 function helper() {
 	yellow "\nArcoInstall"
-	green "
+	purple "
 	-h: Muestra esta ayuda
 	-a: Instala el software desde Arch User Repository
 	-e: Instala software extra
