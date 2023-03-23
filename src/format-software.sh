@@ -11,6 +11,3 @@ function format_software() {
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
 	purple "Software files updated"
 }
-
-# build software file
-format_software

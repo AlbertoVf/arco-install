@@ -1,6 +1,8 @@
 source src/format-software.sh
 source src/check.sh
 
+format_software
+
 function install_community() {
 	info_instalation "Installing community software"
 	software=($(jq '.[] | select(.repositorio=="community") | .paquete' $software_root/software.json))
