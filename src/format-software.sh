@@ -1,6 +1,6 @@
 #!/bin/bash
-
-software_root="../software"
+source src/check.sh
+software_root="software"
 csv_file="$software_root/software.csv"
 json_file="$software_root/software.json"
 
@@ -9,6 +9,8 @@ function format_software() {
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-
+	purple "Software files updated"
 }
+
+# build software file
 format_software

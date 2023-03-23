@@ -1,5 +1,8 @@
-source ./format-software.sh
-source ./check.sh
+source src/format-software.sh
+source src/check.sh
+
+# build software file
+format_software
 
 function install_community() {
 	info_instalation "Installing community software"
@@ -47,7 +50,8 @@ function install_aur() {
 }
 
 function install_snap() {
-	info_instalation "Installing snaps"	software=($(jq '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
+	info_instalation "Installing snaps"
+	software=($(jq '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
 
 	sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap
 	for name in "${snaps[@]}"; do
