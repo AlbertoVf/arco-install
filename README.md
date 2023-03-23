@@ -6,15 +6,17 @@ Instalador de software en [Arcolinux](https://arcolinux.com/).
 
 Este repositorio contiene un script de instalación para ArcoLinux, una distribución de Linux basada en Arch Linux. Con este script, puedes instalar software en ArcoLinux fácilmente y personalizar tu instalación.
 
-## Tipo de software
+## Software
 
+### Tipo de software
+
+- `all`: todo tipo de software
 - `minimal`: software básico
 - `terminal`: software de comandos de terminal
-- `gammer`: software para juegos
 - `programing`: software para programación
-- `all`: todo tipo de software
+- `gammer`: software para juegos
 
-## Tipos de repositorios
+### Tipo de repositorio
 
 - `community`: software de la comunidad
 - `distro`: software propio de la distribución
@@ -22,6 +24,15 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 - `snap`: software [snap](https://snapcraft.io/store)
 - `extra`: software/configuraciones instalado a traves de comandos
 
+
+```json
+{
+	"repositorio"    : "valor unico(community|distro|aur|snap|extra);",
+	"tipos"          : "0 o mas valores (all+minimal+terminal+programing+gammer)",
+	"nombre paquete" : "nombre de software en el repositorio",
+	"formato csv"    : "<repositorio>;<tipos>;<nombre paquete>;"
+}
+```
 
 ## Ejecución
 
