@@ -1,6 +1,10 @@
 source src/format-software.sh
 
-# update_packages
+function update_packages() {
+	format_software
+	blue "Updating packages"
+	sudo reflector --verbose -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && $installation_command -Syyu
+}
 
 function install_community() {
 	info_instalation "Installing community software"

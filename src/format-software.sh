@@ -24,16 +24,10 @@ function is_not_installed() {
 }
 
 function format_software() {
-	jq -sRrc 'split("\n") | .[1:] | map(split(";")) | map({"repositorio": .[0], "tags": .[1], "paquete": .[2]})' \
+	jq -sRrc 'split("\n") | .[1:] | map(split(";")) | map({"paquete": .[2], "repositorio": .[0], "tags": .[1]})' \
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-	green "Software files updated"
-}
 
-function update_packages() {
-	format_software
-	blue "Updating packages"
-	sudo reflector --verbose -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist
-	$installation_command -Syyu
+	green "Software files updated"
 }

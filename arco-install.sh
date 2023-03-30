@@ -16,36 +16,33 @@ function helper() {
 	"
 }
 
-while getopts "haescdt" opt; do
-	case ${opt} in
-	a)
-		install_aur
-		;;
-	e)
-		install_extra
-		;;
-	s)
-		install_snap
-		;;
-	c)
-		install_community
-		;;
-	d)
-		install_distro
-		;;
-	t)
-		install_all
-		;;
-	h)
+function cli() {
+
+	if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
 		helper
-		;;
-	\?)
-		echo "Opción inválida: -$OPTARG" 1>&2
-		exit 1
-		;;
-	:)
-		echo "La opción -$OPTARG requiere un argumento." 1>&2
-		exit 1
-		;;
-	esac
-done
+	else
+		update_packages
+		case $1 in
+		-a | --aur)
+			install_aur
+			;;
+		-e | --extra)
+			install_extra
+			;;
+		-s | --snap)
+			install_snap
+			;;
+		-c | --community)
+			install_community
+			;;
+		-d | --distro)
+			install_distro
+			;;
+		-t | --all)
+			install_all
+			;;
+		esac
+	fi
+}
+
+cli $@
