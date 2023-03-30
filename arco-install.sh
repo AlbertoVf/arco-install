@@ -4,16 +4,15 @@ source src/check.sh
 source src/installer.sh
 
 function helper() {
-	yellow "\nArcoInstall"
-	purple "
-	-h: Muestra esta ayuda
-	-a: Instala el software desde Arch User Repository
-	-e: Instala software extra
-	-s: Instala paquetes snap
-	-c: Instala el software desde repositorios oficiales
-	-d: Instala software propio de la distribucion
-	-t: Instala todo el software
-	"
+	yellow "\nArcoInstall\n
+  -h, --help      : Muestra esta ayuda
+  -a, --aur       : Instala el software desde Arch User Repository
+  -e, --extra     : Instala software extra
+  -s, --snap      : Instala paquetes snap
+  -c, --community : Instala el software desde repositorios oficiales
+  -d, --distro    : Instala software propio de la distribucion
+  -t, --total     : Instala todo el software
+"
 }
 
 function cli() {

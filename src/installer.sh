@@ -1,14 +1,18 @@
 source src/format-software.sh
 
+installation_command='sudo pacman'
+
 function update_packages() {
-	format_software
-	blue "Updating packages"
+	info_instalation "Updating packages"
 	sudo reflector --verbose -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && $installation_command -Syyu
+	format_software
 }
 
 function install_community() {
 	info_instalation "Installing community software"
+
 	software=($(jq -r '.[] | select(.repositorio=="community") | .paquete' $software_root/software.json))
+
 	for name in "${software[@]}"; do
 		if pacman -Qi $name &>/dev/null; then
 			is_installed $name
@@ -21,6 +25,7 @@ function install_community() {
 
 function install_distro() {
 	info_instalation "Installing distribution software"
+
 	software=($(jq -r '.[] | select(.repositorio=="distro") | .paquete' $software_root/software.json))
 
 	for name in "${software[@]}"; do
@@ -34,11 +39,12 @@ function install_distro() {
 }
 
 function install_aur() {
-	dest="$(xdg-user-dir DOWNLOAD)/aur"
 	info_instalation "Installing aur packages"
-	software=($(jq -r '.[] | select(.repositorio=="aur") | .paquete' $software_root/software.json))
 
+	dest="$(xdg-user-dir DOWNLOAD)/aur"
+	software=($(jq -r '.[] | select(.repositorio=="aur") | .paquete' $software_root/software.json))
 	mkdir $dest || cd $dest
+
 	for name in "${aur[@]}"; do
 		cd $dest || exit
 		if pacman -Qi $name &>/dev/null; then
@@ -53,9 +59,10 @@ function install_aur() {
 
 function install_snap() {
 	info_instalation "Installing snaps"
-	software=($(jq -r '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
 
+	software=($(jq -r '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
 	sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap
+
 	for name in "${snaps[@]}"; do
 		if pacman -Qi $name &>/dev/null; then
 			is_installed $name
@@ -67,8 +74,10 @@ function install_snap() {
 }
 
 function install_extra() {
-	echo "Installing extra"
+	info_instalation "Installing extra"
+
 	software=($(jq -r '.[] | select(.repositorio=="extra") | .paquete' $software_root/software.json))
+
 	for name in "${software[@]}"; do
 		$name
 	done

@@ -15,7 +15,3 @@ function blue() {
 function yellow() {
 	printf "\e[1;33m$1\e[0;37m\n"
 }
-
-function purple() {
-	printf "\e[1;35m$1\e[0;37m\n"
-}

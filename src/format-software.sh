@@ -5,14 +5,9 @@ software_root="software"
 csv_file="$software_root/software.csv"
 json_file="$software_root/software.json"
 
-installation_command='sudo pacman'
 
 function info_instalation() {
-	blue "[ $(date) ]  $1"
-}
-
-function check_installed() {
-	return "$installation_command -Q $1"
+	blue "[ $(date) ] $1"
 }
 
 function is_installed() {
@@ -20,7 +15,7 @@ function is_installed() {
 }
 
 function is_not_installed() {
-	yellow "[ $(date) ] Installing package $1"
+	red "[ $(date) ] Installing package $1"
 }
 
 function format_software() {
@@ -28,10 +23,9 @@ function format_software() {
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-
 	green "Software files updated"
 }
 
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
-    format_software
+	format_software
 fi
