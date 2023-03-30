@@ -31,3 +31,7 @@ function format_software() {
 
 	green "Software files updated"
 }
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    format_software
+fi
