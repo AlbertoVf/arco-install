@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source src/check.sh
+source src/messages.sh
 source src/installer.sh
 
 function helper() {

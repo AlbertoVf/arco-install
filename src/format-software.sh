@@ -1,5 +1,5 @@
 #!/bin/bash
-source src/check.sh
+source src/messages.sh
 
 software_root="software"
 csv_file="$software_root/software.csv"
@@ -25,7 +25,3 @@ function format_software() {
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
 	green "Software files updated"
 }
-
-if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
-	format_software
-fi
