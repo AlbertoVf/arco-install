@@ -2,7 +2,7 @@ source src/format-software.sh
 
 function install_package(){
 	name=$1
-	if [ -z "$2"]; then
+	if [ -z "$2" ]; then
 		command="pacman -Sy --noconfirm --needed"
 	else
 		command=$2
@@ -18,7 +18,7 @@ function install_package(){
 
 function update_packages() {
 	info_instalation "Updating packages"
-	sudo reflector --verbose -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Syyu
+	sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Syyu
 	install_package "jq"
 	format_software
 }

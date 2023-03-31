@@ -1,6 +1,6 @@
 # Arco Install
 
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT) [![GitHub](https://img.shields.io/github/tag/AlbertoVf/arco-install.svg?style=flat-square)](https://github.com/AlbertoVf/arco-install/tags)
+[![The MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](http://opensource.org/licenses/MIT) [![GitHub](https://img.shields.io/github/tag/AlbertoVf/arco-install.svg?style=for-the-badge)](https://github.com/AlbertoVf/arco-install/tags)
 
 Instalador de software en [Arcolinux](https://arcolinux.com/).
 
@@ -27,8 +27,8 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 
 ```json
 {
-	"repositorio"    : "valor unico(community|distro|aur|snap|extra);",
-	"tipos"          : "0 o mas valores (all+minimal+terminal+programing+gammer)",
+	"repositorio"    : "valor único(community|distro|aur|snap|extra);",
+	"tipos"          : "0 o mas valores (all+minimal+terminal+programming+gammer)",
 	"nombre paquete" : "nombre de software en el repositorio",
 	"formato csv"    : "<repositorio>;<tipos>;<nombre paquete>;"
 }
@@ -37,11 +37,13 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 ## Ejecución
 
 ```sh
-# Crea un fichero json a partir del archivo csv
-sh src/format-software.sh
+# Opcional: Crea un fichero json a partir del archivo csv
+sh src/installer.sh
 ```
 
 ```sh
 # ejecuta el script de instalación
 sudo sh arco-install.sh
 ```
+
+![Diagrama de uso](diagram.drawio.svg)
