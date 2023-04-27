@@ -1,6 +1,7 @@
+#!/bin/sh
 source src/format-software.sh
 
-function install_package(){
+install_package() {
 	name=$1
 	if [ -z "$2" ]; then
 		command="pacman -Sy --noconfirm --needed"
@@ -16,14 +17,14 @@ function install_package(){
 	fi
 }
 
-function update_packages() {
+update_packages() {
 	info_instalation "Updating packages"
 	sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Syyu
 	install_package "jq"
 	format_software
 }
 
-function install_community() {
+install_community() {
 	info_instalation "Installing community software"
 
 	software=($(jq -r '.[] | select(.repositorio=="community") | .paquete' $software_root/software.json))
@@ -32,7 +33,7 @@ function install_community() {
 	done
 }
 
-function install_distro() {
+install_distro() {
 	info_instalation "Installing distribution software"
 
 	software=($(jq -r '.[] | select(.repositorio=="distro") | .paquete' $software_root/software.json))
@@ -41,7 +42,7 @@ function install_distro() {
 	done
 }
 
-function install_aur() {
+install_aur() {
 	info_instalation "Installing aur packages"
 
 	dest="$(xdg-user-dir DOWNLOAD)/aur"
@@ -61,7 +62,7 @@ function install_aur() {
 	done
 }
 
-function install_snap() {
+install_snap() {
 	info_instalation "Installing snaps"
 
 	software=($(jq -r '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
@@ -72,7 +73,7 @@ function install_snap() {
 	done
 }
 
-function install_extra() {
+install_extra() {
 	info_instalation "Installing extra"
 
 	software=($(jq -r '.[] | select(.repositorio=="extra") | .paquete' $software_root/software.json))
@@ -81,7 +82,7 @@ function install_extra() {
 	done
 }
 
-function install_all() {
+install_all() {
 	install_community
 	install_distro
 	install_aur

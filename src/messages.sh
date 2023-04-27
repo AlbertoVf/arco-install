@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-function red() {
+red() {
 	printf "\e[1;31m$1\e[0;37m\n"
 }
 
-function green() {
+green() {
 	printf "\e[1;32m$1\e[0;37m\n"
 }
 
-function blue() {
+blue() {
 	printf "\e[1;34m$1\e[0;37m\n"
 }
 
-function yellow() {
+yellow() {
 	printf "\e[1;33m$1\e[0;37m\n"
 }

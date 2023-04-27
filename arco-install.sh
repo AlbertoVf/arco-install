@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 source src/messages.sh
 source src/installer.sh
 
-function helper() {
+helper() {
 	yellow "\nArcoInstall\n
   -h, --help      : Muestra esta ayuda
   -a, --aur       : Instala el software desde Arch User Repository
@@ -15,7 +15,7 @@ function helper() {
 "
 }
 
-function cli() {
+cli() {
 
 	if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
 		helper

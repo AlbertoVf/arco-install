@@ -1,24 +1,23 @@
-#!/bin/bash
+#!/bin/sh
 source src/messages.sh
 
 software_root="software"
 csv_file="$software_root/software.csv"
 json_file="$software_root/software.json"
 
-
-function info_instalation() {
+info_instalation() {
 	blue "[ $(date) ] $1"
 }
 
-function is_installed() {
+is_installed() {
 	green "[ $(date) ] The package $1 is already installed"
 }
 
-function is_not_installed() {
+is_not_installed() {
 	red "[ $(date) ] Installing package $1"
 }
 
-function format_software() {
+format_software() {
 	jq -sRrc 'split("\n") | .[1:] | map(split(";")) | map({"paquete": .[2], "repositorio": .[0], "tags": .[1]})' \
 		$csv_file >$json_file
 
