@@ -37,6 +37,18 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 ## Ejecución
 
 ```sh
+ .
+├──  arco-install.sh
+├──  software
+│  ├──  software.csv
+│  └──  software.json
+└──  src
+   ├──  format-software.sh
+   ├──  installer.sh
+   └──  messages.sh
+```
+
+```sh
 # Opcional: Crea un fichero json a partir del archivo csv
 sh src/installer.sh
 ```
