@@ -14,7 +14,7 @@ is_installed() {
 }
 
 is_not_installed() {
-	red "[ $(date) ] Installing package $1"
+	yellow "[ $(date) ] Installing package $1"
 }
 
 format_software() {

@@ -17,11 +17,18 @@ install_package() {
 	fi
 }
 
+install_necessary_packages() {
+	install_package 'jq' # use to create json file
+	install_package 'git' # use to download aur packages
+	install_package 'unzip' # use to decompress zip files
+	install_package 'snapd' # use to install snap packages
+	install_package 'curl' # use to download from url
+	format_software
+}
+
 update_packages() {
 	info_instalation "Updating packages"
 	sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Syyu
-	install_package "jq"
-	format_software
 }
 
 install_community() {
@@ -47,10 +54,9 @@ install_aur() {
 
 	dest="$(xdg-user-dir DOWNLOAD)/aur"
 	software=($(jq -r '.[] | select(.repositorio=="aur") | .paquete' $software_root/software.json))
-	mkdir $dest || cd $dest
+	mkdir -p $dest || cd $dest
 
-	install_package 'git'
-	for name in "${aur[@]}"; do
+	for name in "${software[@]}"; do
 		cd $dest || exit
 		if pacman -Qi $name &>/dev/null; then
 			is_installed $name
@@ -66,9 +72,9 @@ install_snap() {
 	info_instalation "Installing snaps"
 
 	software=($(jq -r '.[] | select(.repositorio=="snap") | .paquete' $software_root/software.json))
-	install_package 'snapd'
 	sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap
-	for name in "${snaps[@]}"; do
+
+	for name in "${software[@]}"; do
 		install_package $name 'snap install'
 	done
 }
@@ -82,15 +88,27 @@ install_extra() {
 	done
 }
 
+install_fonts() {
+	info_instalation "Installing fonts"
+
+	software=($(jq -r '.[] | select(.repositorio=="font") | .paquete' $software_root/software.json))
+	cd $(xdg-user-dir DOWNLOAD)
+
+	for name in "${software[@]}"; do
+		curl -LO "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/$name.zip"
+		unzip $name.zip -d $HOME/.local/share/fonts/$name
+	done
+}
+
 install_all() {
 	install_community
 	install_distro
 	install_aur
 	install_snap
 	install_extra
+	install_fonts
 }
 
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
-	install_package "jq"
 	format_software
 fi

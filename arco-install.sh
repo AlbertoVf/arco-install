@@ -12,6 +12,7 @@ helper() {
   -c, --community : Instala el software desde repositorios oficiales
   -d, --distro    : Instala software propio de la distribucion
   -t, --total     : Instala todo el software
+  -f, --fonts     : Instala nerd fonts
 "
 }
 
@@ -21,6 +22,7 @@ cli() {
 		helper
 	else
 		update_packages
+		install_necessary_packages
 		case $1 in
 		-a | --aur)
 			install_aur
