@@ -18,9 +18,9 @@ is_not_installed() {
 }
 
 format_software() {
-	jq -sRrc 'split("\n") | .[1:] | map(split(";")) | map({"paquete": .[2], "repositorio": .[0], "tags": .[1]})' \
+	jq -sRrc 'split("\n") | .[1:] | map(split(";")) | map({"name": .[2], "repository": .[0], "tags": .[1]})' \
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-	green "Software files updated"
+	green "Software file updated"
 }

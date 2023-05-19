@@ -5,14 +5,14 @@ source src/installer.sh
 
 helper() {
 	yellow "\nArcoInstall\n
-  -h, --help      : Muestra esta ayuda
-  -a, --aur       : Instala el software desde Arch User Repository
-  -e, --extra     : Instala software extra
-  -s, --snap      : Instala paquetes snap
-  -c, --community : Instala el software desde repositorios oficiales
-  -d, --distro    : Instala software propio de la distribucion
-  -t, --total     : Instala todo el software
-  -f, --fonts     : Instala nerd fonts
+  -a, --aur       : Install software from (AUR) Arch User Repository
+  -c, --community : Install software from community repository
+  -d, --distro    : Install software from arco-linux repository
+  -e, --extra     : Install extra software
+  -f, --fonts     : Install nerd fonts
+  -s, --snap      : Install snap packages
+  -t, --total     : Install all software
+  -h, --help      : Print helper
 "
 }
 
@@ -39,6 +39,9 @@ cli() {
 		-d | --distro)
 			install_distro
 			;;
+		-f | --fonts)
+            install_fonts
+            ;;
 		-t | --all)
 			install_all
 			;;
