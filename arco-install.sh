@@ -1,10 +1,9 @@
 #!/bin/sh
 
-source src/messages.sh
 source src/installer.sh
 
 helper() {
-	yellow "\nArcoInstall\n
+	printf "\nArcoInstall\n
   -a, --aur       : Install software from (AUR) Arch User Repository
   -c, --community : Install software from community repository
   -d, --distro    : Install software from arco-linux repository
@@ -13,13 +12,15 @@ helper() {
   -s, --snap      : Install snap packages
   -t, --total     : Install all software
   -h, --help      : Print helper
+  -l, --log       : View low file
 "
 }
 
 cli() {
-
 	if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
 		helper
+	elif [[ $1 == "-l" ]] || [[ $1 == "--log" ]]; then
+		log
 	else
 		update_packages
 		install_necessary_packages
@@ -27,23 +28,23 @@ cli() {
 		-a | --aur)
 			install_aur
 			;;
-		-e | --extra)
-			install_extra
-			;;
-		-s | --snap)
-			install_snap
-			;;
 		-c | --community)
 			install_community
 			;;
 		-d | --distro)
 			install_distro
 			;;
+		-e | --extra)
+			install_extra
+			;;
 		-f | --fonts)
-            install_fonts
-            ;;
-		-t | --all)
-			install_all
+			install_fonts
+			;;
+		-s | --snap)
+			install_snap
+			;;
+		-t | --total)
+			install_total
 			;;
 		esac
 	fi

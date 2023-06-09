@@ -1,20 +1,20 @@
 #!/bin/sh
-source src/messages.sh
 
 software_root="software"
 csv_file="$software_root/software.csv"
 json_file="$software_root/software.json"
+log='arco-install.log'
 
 info_instalation() {
-	blue "[ $(date) ] $1"
+	printf "\e[1;34m[ $(date) ] $1.\e[0;37m\n"
 }
 
 is_installed() {
-	green "[ $(date) ] The package $1 is already installed"
+	printf "\e[1;32m[ $(date) ] The package $1 is already installed.\e[0;37m\n"
 }
 
 is_not_installed() {
-	yellow "[ $(date) ] Installing package $1"
+	printf "\e[1;33m[ $(date) ] Installing package $1.\e[0;37m\n"
 }
 
 format_software() {
@@ -22,5 +22,14 @@ format_software() {
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-	green "Software file updated"
+	info_instalation "Software file updated"
 }
+
+log(){
+	contenido=$(cat $log)
+	echo -e "$contenido"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+	format_software
+fi
