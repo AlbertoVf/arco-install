@@ -93,7 +93,7 @@ install_fonts() {
 
 	software=($(jq -r '.[] | select(.repository=="font") | .name' $software_root/software.json))
 	cd $(xdg-user-dir DOWNLOAD)
-
+	mkdir -p "$HOME/.local/share/fonts"
 	for name in "${software[@]}"; do
 		curl -LO "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/$name.zip"
 		unzip $name.zip -d $HOME/.local/share/fonts/$name
