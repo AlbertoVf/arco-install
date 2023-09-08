@@ -24,13 +24,12 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 - `snap`: software [snap](https://snapcraft.io/store)
 - `extra`: software/configuraciones instalado a traves de comandos
 
-
 ```json
 {
-	"repositorio"    : "valor único(community|distro|aur|snap|extra);",
-	"tipos"          : "0 o mas valores (all+minimal+terminal+programming+gammer)",
-	"nombre paquete" : "nombre de software en el repositorio",
-	"formato csv"    : "<repositorio>;<tipos>;<nombre paquete>;"
+ "repositorio"    : "valor único(community|distro|aur|snap|extra);",
+ "tipos"          : "0 o mas valores (all+minimal+terminal+programming+gammer)",
+ "nombre paquete" : "nombre de software en el repositorio",
+ "formato csv"    : "<repositorio>;<tipos>;<nombre paquete>;"
 }
 ```
 
@@ -50,7 +49,7 @@ Este repositorio contiene un script de instalación para ArcoLinux, una distribu
 
 ```sh
 # Opcional: Crea un fichero json a partir del archivo csv
-sh src/installer.sh
+sh src/format-software.sh
 ```
 
 ```sh
