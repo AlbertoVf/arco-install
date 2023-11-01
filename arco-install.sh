@@ -22,29 +22,29 @@ cli() {
 	elif [[ $1 == "-l" ]] || [[ $1 == "--log" ]]; then
 		log
 	else
-		update_packages
-		install_necessary_packages
+		package::format
+		install::necessary
 		case $1 in
 		-a | --aur)
-			install_aur
+			install::aur
 			;;
 		-c | --community)
-			install_community
+			install::community
 			;;
 		-d | --distro)
-			install_distro
+			install::distro
 			;;
 		-e | --extra)
-			install_extra
+			install::extra
 			;;
 		-f | --fonts)
-			install_fonts
+			install::fonts
 			;;
 		-s | --snap)
-			install_snap
+			install::snap
 			;;
 		-t | --total)
-			install_total
+			install::total
 			;;
 		esac
 	fi

@@ -5,24 +5,24 @@ csv_file="$software_root/software.csv"
 json_file="$software_root/software.json"
 log='arco-install.log'
 
-info_instalation() {
+log::date() {
 	printf "\e[1;34m[ $(date) ] $1.\e[0;37m\n"
 }
 
-is_installed() {
+log::isInstalled() {
 	printf "\e[1;32m[ $(date) ] The package $1 is already installed.\e[0;37m\n"
 }
 
-is_not_installed() {
+log::isNotInstalled() {
 	printf "\e[1;33m[ $(date) ] Installing package $1.\e[0;37m\n"
 }
 
-format_software() {
+package::format() {
 	jq -sRrc 'split("\n") | .[2:] | map(split(";")) | map({"name": .[0], "repository": .[2], "tags": .[1]})' \
 		$csv_file >$json_file
 
 	sed -Ee 's/(\s+\")/\"/g' -i $json_file
-	info_instalation "Software file updated"
+	log::date "Software file updated"
 }
 
 log(){
@@ -31,5 +31,5 @@ log(){
 }
 
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
-	format_software
+	package::format
 fi
