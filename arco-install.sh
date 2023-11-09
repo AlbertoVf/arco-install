@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 source src/installer.sh
 
@@ -12,7 +12,6 @@ helper() {
   -s, --snap      : Install snap packages
   -t, --total     : Install all software
   -h, --help      : Print helper
-  -l, --log       : View low file
 "
 }
 
@@ -22,29 +21,29 @@ cli() {
 	elif [[ $1 == "-l" ]] || [[ $1 == "--log" ]]; then
 		log
 	else
-		package::format
-		install::necessary
+		packageFormat
+		installNecessary
 		case $1 in
 		-a | --aur)
-			install::aur
+			installAur
 			;;
 		-c | --community)
-			install::community
+			installCommunity
 			;;
 		-d | --distro)
-			install::distro
+			installDistro
 			;;
 		-e | --extra)
-			install::extra
+			installExtra
 			;;
 		-f | --fonts)
-			install::fonts
+			installFonts
 			;;
 		-s | --snap)
-			install::snap
+			installSnap
 			;;
 		-t | --total)
-			install::total
+			installTotal
 			;;
 		esac
 	fi

@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env sh
 source src/format-software.sh
 
-package::install() {
+packageInstall() {
 	name=$1
 	if [ -z "$2" ]; then
 		command="sudo pacman -Sy --noconfirm --needed"
@@ -10,57 +10,57 @@ package::install() {
 	fi
 
 	if pacman -Qi $name &>/dev/null; then
-		log::isInstalled $name | tee -a $log
+		logIsInstalled $name | tee -a $log
 	else
-		log::isNotInstalled $name | tee -a $log
+		logIsNotInstalled $name | tee -a $log
 		$command $name 2>> $log
 	fi
 }
 
-install::necessary() {
-	package::install 'jq' # use to create json file
-	package::install 'git' # use to download aur install
-	package::install 'paru' # use to download aur install
-	package::install 'unzip' # use to decompress zip files
-	package::install 'snapd' # use to install snap install
-	package::install 'curl' # use to download from url
-	format_software
+installNecessary() {
+	packageInstall 'jq' # use to create json file
+	packageInstall 'git' # use to download aur install
+	packageInstall 'paru' # use to download aur install
+	packageInstall 'unzip' # use to decompress zip files
+	packageInstall 'snapd' # use to install snap install
+	packageInstall 'curl' # use to download from url
+	formatSoftware
 }
 
-install::update() {
-	log::date "Updating packages"
+installUpdate() {
+	logDate "Updating packages"
 	sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist && sudo pacman -Syyu
 }
 
-install::aur() {
-	log::date "Installing aur packages"
+installAur() {
+	logDate "Installing aur packages"
 
 	software=($(jq -r '.[] | select(.repository=="aur") | .name' $software_root/software.json))
 	for name in "${software[@]}"; do
-		package::install $name 'paru -S'
+		packageInstall $name 'paru -S'
 	done
 }
 
-install::community() {
-	log::date "Installing community packages"
+installCommunity() {
+	logDate "Installing community packages"
 
 	software=($(jq -r '.[] | select(.repository=="community") | .name' $software_root/software.json))
 	for name in "${software[@]}"; do
-		package::install $name
+		packageInstall $name
 	done
 }
 
-install::distro() {
-	log::date "Installing distribution packages"
+installDistro() {
+	logDate "Installing distribution packages"
 
 	software=($(jq -r '.[] | select(.repository=="distro") | .name' $software_root/software.json))
 	for name in "${software[@]}"; do
-		package::install $name
+		packageInstall $name
 	done
 }
 
-install::extra() {
-	log::date "Installing extra packages"
+installExtra() {
+	logDate "Installing extra packages"
 
 	software=($(jq -r '.[] | select(.repository=="extra") | .name' $software_root/software.json))
 	for name in "${software[@]}"; do
@@ -68,8 +68,8 @@ install::extra() {
 	done
 }
 
-install::fonts() {
-	log::date "Installing fonts packages"
+installFonts() {
+	logDate "Installing fonts packages"
 
 	software=($(jq -r '.[] | select(.repository=="font") | .name' $software_root/software.json))
 	cd $(xdg-user-dir DOWNLOAD)
@@ -80,21 +80,21 @@ install::fonts() {
 	done
 }
 
-install::snap() {
-	log::date "Installing snaps packages"
+installSnap() {
+	logDate "Installing snaps packages"
 
 	software=($(jq -r '.[] | select(.repository=="snap") | .name' $software_root/software.json))
 	sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap
 	for name in "${software[@]}"; do
-		package::install $name 'sudo snap install'
+		packageInstall $name 'sudo snap install'
 	done
 }
 
-install_total() {
-	install::community
-	install::distro
-	install::aur
-	install::snap
-	install::extra
-	install::fonts
+installTotal() {
+	installCommunity
+	installDistro
+	installAur
+	installSnap
+	installExtra
+	installFonts
 }
