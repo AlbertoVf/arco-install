@@ -2,6 +2,7 @@ import argparse
 import subprocess
 from src.installer import *
 
+
 def main():
     parser = argparse.ArgumentParser(description="Install the required packages")
     parser.add_argument("-a", "--all", action="store_true", help="Install all software")
@@ -39,5 +40,6 @@ def main():
         install("snap")
         install("command")
 
-# update()
+
+update()
 main()
