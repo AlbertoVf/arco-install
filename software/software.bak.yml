@@ -1,0 +1,8 @@
+repository:
+  aur: sudo paru -S
+  check: sudo pacman -Qq
+  community: sudo pacman -Sy --noconfirm --needed
+  distro: sudo pacman -Sy --noconfirm --needed
+  extra: sudo pacman -Sy --noconfirm --needed
+  script: sudo
+  snap: sudo snap install
