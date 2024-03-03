@@ -1,5 +1,5 @@
 from colorama import init, Fore, Style
-import datetime, csv, yaml
+import datetime, csv, yaml,json
 
 init()
 
@@ -91,9 +91,9 @@ def package_format():
 
     def export_to_json():
         json_file_path = path + ".json"
-        data = yaml.safe_load(open(json_file_path, "r"))
+        data = json.load(open(json_file_path, "r"))
         data["software"] = read_from_csv()
-        yaml.dump(data, open(json_file_path, "w"), default_flow_style=False)
+        json.dump(data, open(json_file_path, "w"))
 
     log_date("Software file updated")
     export_to_yaml()
