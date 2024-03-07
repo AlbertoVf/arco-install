@@ -83,3 +83,4 @@ yq;command converter;community
 yt-dlp;command download;community
 zoxide-git;command shell;aur
 zsh;command shell;community
+playerctl;command media; aur

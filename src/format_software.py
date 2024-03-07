@@ -85,7 +85,7 @@ def package_format():
 
     def export_to_yaml():
         yaml_file_path = path + ".yml"
-        data = yaml.safe_load(open(yaml_file_path, "r"))
+        data = yaml.safe_load(open(f"{path}.bak.yml", "r"))
         data["software"] = read_from_csv()
         yaml.dump(data, open(yaml_file_path, "w"), default_flow_style=False)
 
