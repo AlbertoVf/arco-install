@@ -1,13 +1,7 @@
 import argparse
 import subprocess
 from src.installer import install, clear_cache, update, export_scripts
-
-
-class REPOSITORY_TAGS:
-    DISTRO = ["distro", "community", "extra"]
-    COMPILABLE = ["aur", "snap", "flatpack"]
-    SCRIPT = ["script"]
-    ALL = DISTRO + COMPILABLE + SCRIPT
+from src.repository_values import RepositoryValues as rv
 
 
 def main():
@@ -20,13 +14,13 @@ def main():
 
     update()
     if args.distro:
-        [install(r) for r in REPOSITORY_TAGS.DISTRO]
+        [install(r) for r in rv.DISTRO]
     if args.script:
-        [install(r) for r in REPOSITORY_TAGS.SCRIPT]
+        [install(r) for r in rv.SCRIPT]
     if args.compilable:
-        [install(r) for r in REPOSITORY_TAGS.COMPILABLE]
+        [install(r) for r in rv.COMPILABLE]
     if args.all:
-        [install(r) for r in REPOSITORY_TAGS.ALL]
+        [install(r) for r in rv.ALL]
     clear_cache()
 
 

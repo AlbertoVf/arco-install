@@ -6,6 +6,7 @@ init()
 date = datetime.now().strftime("%H:%M:%S")
 log = lambda msg: open("arco_install.log", "a").write(f"{msg}\n")
 
+
 def console_log_message(software: str, status, error: str = "") -> str:
     STATUS = {
         "INSTALLED": f"{Fore.GREEN + Style.BRIGHT}[{date}] The package {software} is already installed.{Style.RESET_ALL}",

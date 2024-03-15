@@ -1,19 +1,15 @@
 import subprocess
-from .format_software import (
-    SoftwareKeys,
-    log_date,
-    console_log_message,
-    package_format,
-    log,
-    import_file_as_dict,
-)
+from .format_software import package_format, import_file_as_dict
+from .log import log_date, log, console_log_message
+from .software_keys import SoftwareKeys
+
+
+package_format()
 
 software_data = import_file_as_dict()
-
 read_installation_command = lambda repository: software_data[SoftwareKeys.REPOSITORY][
     repository
 ]
-
 read_software_list = lambda repository: [
     software
     for software in software_data[SoftwareKeys.SOFTWARE]
@@ -21,12 +17,12 @@ read_software_list = lambda repository: [
 ]
 
 
+@log_date("Updating packages")
 def update():
     """
     The `update()` function runs the `reflector` command to update package mirrors for the Pacman
     package manager in Arch Linux.
     """
-    log_date("Updating packages")
     subprocess.run(
         "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist",
         shell=True,
@@ -41,7 +37,6 @@ def install_necessary():
     """
     for s in ["git", "paru", "snapd"]:
         package_install(s, read_installation_command("distro"))
-    package_format()
     subprocess.run(
         "sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap",
         shell=True,
@@ -103,7 +98,7 @@ def clear_cache():
     subprocess.run(["paru", "-Scc"], check=True)
     subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
 
-
+@log_date("Export to bash-script")
 def export_scripts(repository):
     command = read_installation_command(repository)
     software = read_software_list(repository)
