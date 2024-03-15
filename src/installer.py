@@ -1,14 +1,26 @@
 import subprocess
 from .format_software import (
+    SoftwareKeys,
+    log_date,
     log_is_not_installed,
     log_is_installed,
-    log_date,
     log_error_install,
-    read_installation_command,
-    read_software_list,
     package_format,
-    log
+    log,
+    import_file_as_dict,
 )
+
+software_data = import_file_as_dict()
+
+read_installation_command = lambda repository: software_data[SoftwareKeys.REPOSITORY][
+    repository
+]
+
+read_software_list = lambda repository: [
+    software
+    for software in software_data[SoftwareKeys.SOFTWARE]
+    if software[SoftwareKeys.REPOSITORY] == repository
+]
 
 
 def update():
@@ -52,6 +64,7 @@ def package_install(software, repository: str):
     is then split into a list of elements using the space character as the delimiter
     :type repository: str
     """
+
     def is_installed(software):
         command = read_installation_command("check").split(" ") + [software]
 
@@ -85,4 +98,17 @@ def install(repository):
     command = read_installation_command(repository)
     software = read_software_list(repository)
     for s in software:
-        package_install(s["name"], command)
+        package_install(s[SoftwareKeys.NAME], command)
+
+
+def clear_cache():
+    subprocess.run(["paru", "-Scc"], check=True)
+    subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
+
+
+def export_scripts(repository):
+    command = read_installation_command(repository)
+    software = read_software_list(repository)
+    with open ('arco_install.sh','w') as f:
+        for s in software:
+            f.write(f"{command} {s[SoftwareKeys.NAME]}\n")
