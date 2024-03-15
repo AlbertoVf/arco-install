@@ -10,18 +10,22 @@ def main():
     parser.add_argument( "-c", "--compilable", action="store_true", help="Install software from AUR, snap", )
     parser.add_argument( "-d", "--distro", action="store_true", help="Install software from distribution and communnity", )
     parser.add_argument( "-s", "--script", action="store_true", help="Install extra software" )
+    parser.add_argument( "-e", "--export", action="store_true", help="Build bashscript installation file" )
     args = parser.parse_args()
 
-    update()
-    if args.distro:
-        [install(r) for r in rv.DISTRO]
-    if args.script:
-        [install(r) for r in rv.SCRIPT]
-    if args.compilable:
-        [install(r) for r in rv.COMPILABLE]
-    if args.all:
-        [install(r) for r in rv.ALL]
-    clear_cache()
+    if args.export:
+        export_scripts(rv.ALL)
+    else:
+        update()
+        if args.distro:
+            [install(r) for r in rv.DISTRO]
+        if args.script:
+            [install(r) for r in rv.SCRIPT]
+        if args.compilable:
+            [install(r) for r in rv.COMPILABLE]
+        if args.all:
+            [install(r) for r in rv.ALL]
+        clear_cache()
 
 
 main()

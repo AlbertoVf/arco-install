@@ -98,10 +98,17 @@ def clear_cache():
     subprocess.run(["paru", "-Scc"], check=True)
     subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
 
-@log_date("Export to bash-script")
-def export_scripts(repository):
-    command = read_installation_command(repository)
-    software = read_software_list(repository)
-    with open("arco_install.sh", "w") as f:
+
+def export_scripts(repositorys):
+    @log_date("Export to bash-script")
+    def _export_scripts(repository):
+        sf = []
         for s in software:
-            f.write(f"{command} {s[SoftwareKeys.NAME]}\n")
+            sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")
+        return sf
+
+    with open("arco_install.sh", "w") as f:
+        for repository in repositorys:
+            command = read_installation_command(repository)
+            software = read_software_list(repository)
+            f.writelines(_export_scripts(repository))
