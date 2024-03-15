@@ -1,15 +1,24 @@
 from colorama import init, Fore, Style
-import datetime, csv, yaml,json
+import datetime, csv, yaml, json
 
 init()
 
 path = "./software/software"
 date = datetime.datetime.now().strftime("%H:%M:%S")
-
 log_date = lambda a: print(f"{Fore.BLUE + Style.BRIGHT}[{date}] {a}.{Style.RESET_ALL}")
+import_file_as_dict = lambda: yaml.safe_load(open(path + ".yml", "r"))
+log = lambda msg: open("arco_install.log", "a").write(f"{msg}\n")
 
 
-def log_is_installed(software)->str:
+# The class `SoftwareKeys` defines constants for keys related to software information.
+class SoftwareKeys:
+    REPOSITORY = "Repository"
+    NAME = "Name"
+    TAGS = "Tags"
+    SOFTWARE = "Software"
+
+
+def log_is_installed(software) -> str:
     """
     The function `log_is_installed` logs a message indicating that a specified software package is
     already installed.
@@ -24,7 +33,7 @@ def log_is_installed(software)->str:
     return msg
 
 
-def log_is_not_installed(software)->str:
+def log_is_not_installed(software) -> str:
     """
     The function `log_is_not_installed` logs a message indicating that a software package is being
     installed.
@@ -40,7 +49,7 @@ def log_is_not_installed(software)->str:
     return msg
 
 
-def log_error_install(software, error)->str:
+def log_error_install(software, error) -> str:
     """
     The function `log_error_install` logs an error message when installing a software with the specified
     error.
@@ -55,17 +64,6 @@ def log_error_install(software, error)->str:
     msg = f"{Fore.RED + Style.BRIGHT}[{date}] Error installing {software} - {error}"
     print(msg)
     return msg
-
-
-def log(msg):
-    """
-    The `log` function appends a message to a log file named "arco_install.log".
-
-    :param msg: The `msg` parameter in the `log` function is a string that represents the message or
-    information that you want to log into the "arco_install.log" file
-    """
-    with open("arco_install.log", "a") as f:
-        f.write(f"{msg}\n")
 
 
 def package_format():
@@ -86,62 +84,17 @@ def package_format():
     def export_to_yaml():
         yaml_file_path = path + ".yml"
         data = yaml.safe_load(open(f"{path}.bak.yml", "r"))
-        data["software"] = read_from_csv()
+        data[SoftwareKeys.SOFTWARE] = read_from_csv()
         yaml.dump(data, open(yaml_file_path, "w"), default_flow_style=False)
 
     def export_to_json():
         json_file_path = path + ".json"
         data = json.load(open(json_file_path, "r"))
-        data["software"] = read_from_csv()
+        data[SoftwareKeys.SOFTWARE] = read_from_csv()
         json.dump(data, open(json_file_path, "w"))
 
     log_date("Software file updated")
     export_to_yaml()
-
-
-def read_installation_command(repository):
-    """
-    The function reads an installation command from a YAML file based on a given repository.
-
-    :param repository: The `repository` parameter in the `read_installation_command` function is used to
-    specify which installation command to read from the YAML file. The function reads the YAML file
-    specified by `yaml_file_path` and returns the installation command associated with the given
-    `repository` key in the YAML data
-    :return: The function `read_installation_command` reads a YAML file specified by `repository` and
-    returns the installation command for that repository as specified in the YAML file.
-    """
-    yaml_file_path = path + ".yml"
-
-    with open(yaml_file_path, "r") as yaml_file:
-        datos = yaml.safe_load(yaml_file)
-
-    return datos["repository"][repository]  # Imprime el contenido del archivo YAML
-
-
-def read_software_list(repository):
-    """
-    The function `read_software_list` reads a YAML file containing software information and returns a
-    list of software entries based on a specified repository.
-
-    :param repository: The `repository` parameter in the `read_software_list` function is used to filter
-    the list of software based on the specified repository. The function reads a YAML file containing
-    software information, extracts the software list, and then filters it based on the provided
-    repository value. The filtered list of software that
-    :return: The function `read_software_list(repository)` returns a list of software items from a YAML
-    file that match the specified repository.
-    """
-    yaml_file_path = path + ".yml"
-
-    with open(yaml_file_path, "r") as yaml_file:
-        data = yaml.safe_load(yaml_file)
-
-    software = [
-        software
-        for software in data["software"]
-        if software["repository"] == repository
-    ]
-
-    return software
 
 
 if __name__ == "__main__":
