@@ -2,9 +2,7 @@ import subprocess
 from .format_software import (
     SoftwareKeys,
     log_date,
-    log_is_not_installed,
-    log_is_installed,
-    log_error_install,
+    console_log_message,
     package_format,
     log,
     import_file_as_dict,
@@ -74,14 +72,14 @@ def package_install(software, repository: str):
     command = repository.split(" ") + [software]
 
     if is_installed(software):
-        a = log_is_installed(software)
+        a = console_log_message(software, "INSTALLED")
     else:
         try:
-            log_is_not_installed(software)
+            console_log_message(software, "NOT INSTALLED")
             subprocess.run(command, check=True)
-            a = log_is_installed(software)
+            a = console_log_message(software, "INSTALLED")
         except subprocess.CalledProcessError as e:
-            a = log_error_install(software, str(e))
+            a = console_log_message(software, "ERROR", str(e))
     log(a)
 
 
@@ -109,6 +107,6 @@ def clear_cache():
 def export_scripts(repository):
     command = read_installation_command(repository)
     software = read_software_list(repository)
-    with open ('arco_install.sh','w') as f:
+    with open("arco_install.sh", "w") as f:
         for s in software:
             f.write(f"{command} {s[SoftwareKeys.NAME]}\n")

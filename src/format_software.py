@@ -18,53 +18,33 @@ class SoftwareKeys:
     SOFTWARE = "Software"
 
 
-def log_is_installed(software) -> str:
+def console_log_message(software: str, status, error: str = "") -> str:
     """
-    The function `log_is_installed` logs a message indicating that a specified software package is
-    already installed.
+    This Python function `console_log_message` logs messages related to software installation status and
+    errors.
 
-    :param software: The `software` parameter in the `log_is_installed` function represents the name of
-    the software package that is being checked for installation
-    :return: The function `log_is_installed` is returning the `msg` variable, which is a formatted
-    string indicating that the package is already installed.
+    :param software: The `software` parameter is a string that represents the name of the software
+    package being processed in the function `console_log_message`
+    :type software: str
+    :param status: The `status` parameter in the `console_log_message` function represents the current
+    status of the software package. It can have one of the following values:
+    :param error: The `error` parameter in the `console_log_message` function is a string that
+    represents any error message that occurred during the installation process of a software package. If
+    the `status` parameter is set to "ERROR", this `error` message will be included in the log message
+    that is printed out
+    :type error: str
+    :return: The function `console_log_message` returns the formatted log message based on the input
+    parameters and then prints the message to the console.
     """
-    msg = f"{Fore.GREEN + Style.BRIGHT}[{date}] The package {software} is already installed.{Style.RESET_ALL}"
+    msg = ""
+    if status == "INSTALLED":
+        msg = f"{Fore.GREEN + Style.BRIGHT}[{date}] The package {software} is already installed.{Style.RESET_ALL}"
+    elif status == "NOT INSTALLED":
+        msg = f"{Fore.YELLOW + Style.BRIGHT}[{date}] Installing package {software}.{Style.RESET_ALL}"
+    elif status == "ERROR":
+        msg = f"{Fore.RED + Style.BRIGHT}[{date}] Error installing {software} - {error}"
     print(msg)
     return msg
-
-
-def log_is_not_installed(software) -> str:
-    """
-    The function `log_is_not_installed` logs a message indicating that a software package is being
-    installed.
-
-    :param software: The `software` parameter in the `log_is_not_installed` function represents the name
-    of the software package that is being installed
-    :return: The function `log_is_not_installed` is returning the log message that is being printed to
-    the console. The log message includes the installation information for the specified software
-    package.
-    """
-    msg = f"{Fore.YELLOW + Style.BRIGHT}[{date}] Installing package {software}.{Style.RESET_ALL}"
-    print(msg)
-    return msg
-
-
-def log_error_install(software, error) -> str:
-    """
-    The function `log_error_install` logs an error message when installing a software with the specified
-    error.
-
-    :param software: Software is a variable that represents the name of the software that encountered an
-    error during installation
-    :param error: The `error` parameter in the `log_error_install` function is used to specify the error
-    message that occurred during the installation of the software. This error message will be included
-    in the log message that is printed out by the function
-    :return: The function `log_error_install` is returning the formatted error message `msg`.
-    """
-    msg = f"{Fore.RED + Style.BRIGHT}[{date}] Error installing {software} - {error}"
-    print(msg)
-    return msg
-
 
 def package_format():
     """
