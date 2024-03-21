@@ -1,12 +1,12 @@
 import subprocess
-from .format_software import package_format, import_file_as_dict
+from .format_software import export_to_file, read_software_data
 from .log import log_date, log, console_log_message
-from .software_keys import SoftwareKeys
+from .repository_values import SoftwareKeys
 
 
-package_format()
+export_to_file()
 
-software_data = import_file_as_dict()
+software_data = read_software_data()
 read_installation_command = lambda repository: software_data[SoftwareKeys.REPOSITORY][
     repository
 ]

@@ -1,6 +1,6 @@
 import csv, yaml, json
 from .log import console_extra_log
-from .software_keys import SoftwareKeys
+from .repository_values import SoftwareKeys
 
 
 @console_extra_log("Import software from data")

@@ -1,14 +1,18 @@
 import datetime, csv, yaml, json
 
-from .software_keys import SoftwareKeys
+from .repository_values import SoftwareKeys
 from .log import log_date
 
 path = "./software/software"
-import_file_as_dict = lambda: yaml.safe_load(open(path + ".yml", "r"))
+read_software_data = lambda: yaml.safe_load(open(path + ".yml", "r"))
 
 
-@log_date("Read Software list")
-def read_software_list():
+# *
+# * IMPORT FUNCTION
+# *
+
+
+def import_software_from_csv() -> list:
     csv_file_path = path + ".csv"
     data_csv = []
     with open(csv_file_path, "r") as csv_file:
@@ -16,6 +20,16 @@ def read_software_list():
         for row in csv_reader:
             data_csv.append(row)
     return data_csv
+
+
+@log_date("Read Software list")
+def read_software_list() -> list:
+    return import_software_from_csv()
+
+
+# *
+# * EXPORT FUNCTION
+# *
 
 
 @log_date("Export to YAML")
@@ -35,5 +49,5 @@ def export_to_json():
 
 
 @log_date("Software file updated")
-def package_format():
+def export_to_file():
     export_to_yaml()
