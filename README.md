@@ -7,57 +7,88 @@ Software installer to [Arcolinux](https://arcolinux.com/).
 
 ## Software
 
-## Instalation scripts
+### Software import
+
+#### CSV
+
+The default software is a csv file with an header row `Name;Repository;Tags`, separated by `;`
+
+- `Name`: Software name
+- `Repository`: Software repository where it is included
+- `Tags`: keyword, tag used to categorize the software
+
+![software csv](docs/software_format_csv.png)
+
+#### YAML
+
+- `software.bak.yml` include repository object with repository_name and installation
 
 ```yaml
-repository:
-  aur: sudo paru -S
-  check: sudo pacman -Qq
-  community: sudo pacman -Sy --noconfirm --needed
-  distro: sudo pacman -Sy --noconfirm --needed
-  extra: sudo pacman -Sy --noconfirm --needed
-  script: sudo
-  snap: sudo snap install
+Repository:
+  repository_name : repository_command_install
+  ...:...
 ```
 
-## Yaml software format
+- `repository_name`: repository where the software is included
+- `repository_command_install`: command to install the software
+![software repository format](docs/software_format_yml.png)
 
-```yaml
-- Name: archlinux-betterlockscreen
-  Repository: distro
-  Tags: theme
+### Software export
+
+Export the software list and the installation command to yaml/json file ( yaml by default)
+
+![repository command](docs/software_export.png)
+
+## Command line usage
+
+![Use diagram](docs/use_diagram.svg)
+
+Run help command
+
+```bash
+python arco_install.py -h
 ```
 
-## Software File
+```log
+usage: arco_install.py [-h] [-a] [-c] [-d] [-s] [-e]
 
-```yaml
-repository:
-    ...
-software:
-    ...
+Install the required packages
+
+options:
+-h, --help        show this help message and exit
+-a, --all         Install all software
+-c, --compilable  Install software from AUR, snap
+-d, --distro      Install software from distribution and communnity
+-s, --script      Install extra software
+-e, --export      Build bashscript installation file
 ```
 
-## Running
+Install script command: Run scripts who is a command line, not a package
 
-```txt
-📂
-├── 📂 software
-│  ├── 📜 software.csv
-│  └── 📜 software.yml
-└── 📂 src
-|   ├── 🐚 format-software.py
-|   └── 🐚 installer.py
-└── 🐚 arco_install.py
+```bash
+python arco_install.py [-s | --script]
 ```
 
-```python
-# [!TIP] Use to only build software.yml
-python src/format_software.py
+Install all software included in the software file
+
+```bash
+python arco_install.py [-a | --all]
 ```
 
-```python
-# Run instalation script
-sudo python arco_install.py
+Install software included in repositories who necessary compilation: snap, aur, flatpack...
+
+```bash
+python arco_install.py [-c | --compilable]
 ```
 
-![Use diagram](./docs/use_diagram.svg)
+Install software included in the distribution repositories: community, distribution, extra, large_support, 3rd_...
+
+```bash
+python arco_install.py [-d | --distro]
+```
+
+Build a `.sh` file to install any software manually ( 1 line = 1 command installation)
+
+```bash
+python arco_install.py [-e | --export]
+```
