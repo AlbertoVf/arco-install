@@ -7,14 +7,30 @@ from src.repository_values import RepositoryValues as rv
 def main():
     parser = argparse.ArgumentParser(description="Install the required packages")
     parser.add_argument("-a", "--all", action="store_true", help="Install all software")
-    parser.add_argument( "-c", "--compilable", action="store_true", help="Install software from AUR, snap", )
-    parser.add_argument( "-d", "--distro", action="store_true", help="Install software from distribution and communnity", )
-    parser.add_argument( "-s", "--script", action="store_true", help="Install extra software" )
-    parser.add_argument( "-e", "--export", action="store_true", help="Build bashscript installation file" )
+    parser.add_argument(
+        "-c",
+        "--compilable",
+        action="store_true",
+        help="Install software from AUR, snap",
+    )
+    parser.add_argument(
+        "-d",
+        "--distro",
+        action="store_true",
+        help="Install software from distribution and communnity",
+    )
+    parser.add_argument(
+        "-s", "--script", action="store_true", help="Install extra software"
+    )
+    parser.add_argument(
+        "-e", "--export", action="store_true", help="Build bashscript installation file"
+    )
     args = parser.parse_args()
 
     if args.export:
         export_scripts(rv.ALL)
+    elif args.help:
+        pass
     else:
         update()
         if args.distro:
