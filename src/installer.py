@@ -2,6 +2,7 @@ import subprocess
 from .format_software import export_to_file, read_software_data
 from .log import log_date, log, console_log_message
 from .repository_values import SoftwareKeys
+from .conf import sh_export_script
 
 
 export_to_file()
@@ -99,7 +100,7 @@ def clear_cache():
     subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
 
 
-def export_scripts(repositorys):
+def export_scripts(repositories):
     @log_date("Export to bash-script")
     def _export_scripts(repository):
         sf = []
@@ -107,8 +108,8 @@ def export_scripts(repositorys):
             sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")
         return sf
 
-    with open("arco_install.sh", "w") as f:
-        for repository in repositorys:
+    with open(sh_export_script, "w") as f:
+        for repository in repositories:
             command = read_installation_command(repository)
             software = read_software_list(repository)
             f.writelines(_export_scripts(repository))

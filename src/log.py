@@ -1,10 +1,11 @@
 from colorama import init, Fore, Style
 from datetime import datetime
+from .conf import sh_export_script
 
 init()
 
 date = datetime.now().strftime("%H:%M:%S")
-log = lambda msg: open("arco_install.log", "a").write(f"{msg}\n")
+log = lambda msg: open(sh_export_script, "a").write(f"{msg}\n")
 
 
 def console_log_message(software: str, status, error: str = "") -> str:
@@ -19,7 +20,7 @@ def console_log_message(software: str, status, error: str = "") -> str:
 
 
 def console_extra_log(msg):
-    def decorator_funcion(func):
+    def decorator_function(func):
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
             print(msg)
@@ -27,11 +28,11 @@ def console_extra_log(msg):
 
         return wrapper
 
-    return decorator_funcion
+    return decorator_function
 
 
 def log_date(msg):
-    def decorator_funcion(func):
+    def decorator_function(func):
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
             print(f"{Fore.BLUE + Style.BRIGHT}[{date}] {msg}.{Style.RESET_ALL}")
@@ -39,4 +40,4 @@ def log_date(msg):
 
         return wrapper
 
-    return decorator_funcion
+    return decorator_function
