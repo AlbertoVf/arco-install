@@ -62,6 +62,7 @@ def log_date(msg: str):
     Returns:
       The `log_date` function is returning a decorator function that can be used to add logging functionality to other functions.
     """
+
     def decorator_function(func):
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)

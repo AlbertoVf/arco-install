@@ -1,7 +1,12 @@
 import datetime, csv, yaml, json
 from .repository_values import SoftwareKeys
 from .log import log_date
-from .conf import yml_software_output, software_file_data, yml_repository_input, json_software_output
+from .conf import (
+    yml_software_output,
+    software_file_data,
+    yml_repository_input,
+    json_software_output,
+)
 
 read_software_data = lambda: yaml.safe_load(open(yml_software_output, "r"))
 
