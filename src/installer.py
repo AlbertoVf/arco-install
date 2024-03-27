@@ -1,16 +1,15 @@
 import subprocess
 from .format_software import export_to_file, read_software_data
 from .log import log_date, log, console_log_message
-from .repository_values import SoftwareKeys
+from .repository_values import RepositoryValues, SoftwareKeys
 from .conf import sh_export_script
 
-
-export_to_file()
 
 software_data = read_software_data()
 read_installation_command = lambda repository: software_data[SoftwareKeys.REPOSITORY][
     repository
 ]
+
 read_software_list = lambda repository: [
     software
     for software in software_data[SoftwareKeys.SOFTWARE]
@@ -21,9 +20,8 @@ read_software_list = lambda repository: [
 @log_date("Updating packages")
 def update():
     """
-    The `update()` function runs the `reflector` command to update package mirrors for the Pacman
-    package manager in Arch Linux.
-    """
+    The `update()` function runs the `reflector` command with specific options to update the mirrorlist for pacman package manager in Arch Linux
+    ."""
     subprocess.run(
         "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist",
         shell=True,
@@ -33,8 +31,7 @@ def update():
 
 def install_necessary():
     """
-    The function `install_necessary` installs necessary packages, formats packages, and enables snapd
-    socket.
+    The function `install_necessary` installs necessary packages, formats packages, and enables snapd socket.
     """
     for s in ["git", "paru", "snapd"]:
         package_install(s, read_installation_command("distro"))
@@ -45,18 +42,14 @@ def install_necessary():
     )
 
 
-def package_install(software, repository: str):
+def package_install(software: str, repository: str):
     """
-    The function `package_install` checks if a software package is installed, installs it if not, and
-    logs the installation status.
+    The function `package_install` checks if a software package is installed and installs it from a
+    specified repository if it is not already installed.
 
-    :param software: The `software` parameter in the `package_install` function refers to the name of
-    the software package that you want to install or check for installation status. It is a string
-    representing the name of the software package
-    :param repository: The `repository` parameter in the `package_install` function is expected to be a
-    string that represents the repository from which the software package will be installed. This string
-    is then split into a list of elements using the space character as the delimiter
-    :type repository: str
+    Args:
+      software (str): The `software` parameter in the `package_install` function refers to the name of the software package that you want to install or check if it is already installed.
+      repository (str): The `repository` parameter in the `package_install` function is expected to be a string that represents the repository from which the software package will be installed. It seems like the repository string is split by spaces to form a command for installation.
     """
 
     def is_installed(software):
@@ -79,14 +72,13 @@ def package_install(software, repository: str):
     log(a)
 
 
-def install(repository):
+def install(repository: str):
     """
     The `install` function installs packages from a specified repository using a given installation
-    command.
+    command and software list.
 
-    :param repository: It looks like you were about to provide some information about the `repository`
-    parameter, but it seems to have been cut off. Could you please provide more details or let me know
-    how I can assist you further with the `repository` parameter?
+    Args:
+      repository (str): The `repository` parameter is a string that represents the name or location of the software repository from which packages are to be installed.
     """
     log_date(f"Installing {repository} packages")
     command = read_installation_command(repository)
@@ -96,13 +88,23 @@ def install(repository):
 
 
 def clear_cache():
+    """
+    The `clear_cache` function removes cached data using `paru` and `snapd` commands in Python.
+    """
     subprocess.run(["paru", "-Scc"], check=True)
     subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
 
 
-def export_scripts(repositories):
+def export_scripts(repositories: list[RepositoryValues]):
+    """
+    The function `export_scripts` exports installation commands to a bash script based on a list of repositories.
+
+    Args:
+      repositories (list[RepositoryValues]): The `repositories` parameter is a list of `RepositoryValues` objects.
+    """
+
     @log_date("Export to bash-script")
-    def _export_scripts(repository):
+    def _export_scripts(repository: str):
         sf = []
         for s in software:
             sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")

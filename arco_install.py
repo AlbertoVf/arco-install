@@ -1,5 +1,6 @@
 import argparse
 import subprocess
+from src.format_software import export_to_file
 from src.installer import install, clear_cache, update, export_scripts
 from src.repository_values import RepositoryValues as rv
 
@@ -32,6 +33,7 @@ def main():
     elif args.help:
         pass
     else:
+        export_to_file()
         update()
         if args.distro:
             [install(r) for r in rv.DISTRO]
