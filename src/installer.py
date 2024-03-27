@@ -1,18 +1,14 @@
 import subprocess
-from .format_software import export_to_file, read_software_data
+from .format_software import export_to_file, read_software_data as sd
 from .log import log_date, log, console_log_message
 from .repository_values import RepositoryValues, SoftwareKeys
 from .conf import sh_export_script
 
-
-software_data = read_software_data()
-read_installation_command = lambda repository: software_data[SoftwareKeys.REPOSITORY][
-    repository
-]
+read_installation_command = lambda repository: sd()[SoftwareKeys.REPOSITORY][repository]
 
 read_software_list = lambda repository: [
     software
-    for software in software_data[SoftwareKeys.SOFTWARE]
+    for software in sd()[SoftwareKeys.SOFTWARE]
     if software[SoftwareKeys.REPOSITORY] == repository
 ]
 

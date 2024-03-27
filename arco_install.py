@@ -28,12 +28,10 @@ def main():
     )
     args = parser.parse_args()
 
+    export_to_file()
     if args.export:
         export_scripts(rv.ALL)
-    elif args.help:
-        pass
     else:
-        export_to_file()
         update()
         if args.distro:
             [install(r) for r in rv.DISTRO]
