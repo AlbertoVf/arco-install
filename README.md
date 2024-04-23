@@ -43,52 +43,52 @@ Export the software list and the installation command to yaml/json file ( yaml b
 
 ![Use diagram](docs/use_diagram.svg)
 
-Run help command
+- Run help command
 
-```bash
-python arco_install.py -h
-```
+    ```bash
+    python arco_install.py -h
+    ```
 
-```log
-usage: arco_install.py [-h] [-a] [-c] [-d] [-s] [-e]
+    ```log
+    usage: arco_install.py [-h] [-a] [-c] [-d] [-s] [-e]
 
-Install the required packages
+    Install the required packages
 
-options:
--h, --help        show this help message and exit
--a, --all         Install all software
--c, --compilable  Install software from AUR, snap
--d, --distro      Install software from distribution and communnity
--s, --script      Install extra software
--e, --export      Build bashscript installation file
-```
+    options:
+    -h, --help        show this help message and exit
+    -a, --all         Install all software
+    -c, --compilable  Install software from AUR, snap
+    -d, --distro      Install software from distribution and communnity
+    -s, --script      Install extra software
+    -e, --export      Build bashscript installation file
+    ```
 
-Install script command: Run scripts who is a command line, not a package
+- Install script command: Run scripts who is a command line, not a package
 
-```bash
-python arco_install.py [-s | --script]
-```
+    ```bash
+    python arco_install.py [-s | --script]
+    ```
 
-Install all software included in the software file
+- Install all software included in the software file
 
-```bash
-python arco_install.py [-a | --all]
-```
+    ```bash
+    python arco_install.py [-a | --all]
+    ```
 
-Install software included in repositories who necessary compilation: snap, aur, flatpack...
+- Install software included in repositories who necessary compilation: snap, aur, flatpack...
 
-```bash
-python arco_install.py [-c | --compilable]
-```
+    ```bash
+    python arco_install.py [-c | --compilable]
+    ```
 
-Install software included in the distribution repositories: community, distribution, extra, large_support, 3rd_...
+- Install software included in the distribution repositories: community, distribution, extra, large_support, 3rd_...
 
-```bash
-python arco_install.py [-d | --distro]
-```
+    ```bash
+    python arco_install.py [-d | --distro]
+    ```
 
-Build a `.sh` file to install any software manually ( 1 line = 1 command installation)
+- Build a `.sh` file to install any software manually ( 1 line = 1 command installation)
 
-```bash
-python arco_install.py [-e | --export]
-```
+    ```bash
+    python arco_install.py [-e | --export]
+    ```
