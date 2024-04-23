@@ -1,5 +1,5 @@
 Repository:
-  aur       : sudo paru -S
+  aur       : paru -S
   check     : sudo pacman -Qq
   community : sudo pacman -Sy --noconfirm --needed
   distro    : sudo pacman -Sy --noconfirm --needed

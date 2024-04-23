@@ -27,6 +27,7 @@ def import_software_from_csv() -> list:
     with open(software_file_data, "r") as f:
         csv_reader = csv.DictReader(f, delimiter=";")
         for row in csv_reader:
+            row = {key.strip(): value.strip() for key, value in row.items()}
             data_csv.append(row)
     return data_csv
 

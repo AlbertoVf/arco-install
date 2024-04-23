@@ -1,85 +1,85 @@
-Name;Repository;Tags
-betterlockscreen;community;theme
-bat;community;programming command
-bat-extras;community;programming command
-bitwarden;community;password
-bleachbit;community;cleaner
-brave-bin;community;browser
-btop;community;command
-calibre;community;browser
-choose;community;command
-chromium;community;browser
-cmake;community;programming command
-composer;community;programming command php
-conky;community;theme
-deno;community;programming command node
-docker;community;programming command
-docker-compose;community;programming command docker
-eza;community;command theme
-ferdium;aur;chat
-figlet;community;command theme
-font-manager-git;community;font
-gimp;community;editor image
-github-cli;community;programming command
-gnome-calculator;community;tools
-gnome-clocks;community;tools
-hugo;community;programming command go
-jq;community;command converter
-kitty;community;terminal
-kodi;community;media manager
-kvantum-theme-qogir-git;community;theme
-libreoffice-fresh-es;community;editor
-megasync;community;tools
-mpv;community;video
-neofetch;community;command theme
-noto-fonts-emoji;community;font theme
-obsidian;community;editor
-openbox;community;windows-manager theme
-openssh;community;command ssh shell
-pamac-all;aur;software
-paru;community;command software
-pdftk;community;command converter
-peco;community;command finder
-picom;community;command theme
-plank;community;theme
-pnpm;community;programming command node
-pragha;community;manager music
-qbittorrent;community;downloads
-qogir-gtk-theme-git;community;theme
-qtile;community;windows-manager theme
-remmina;community;programming
-retroarch-git;aur;game manager
-rofi;community;tools
-rofi-bluetooth-git;aur;command rofi
-rofi-emoji;community;extension
-rofi-file-browser-extended-git;aur;extension
-simple-scan;community;tools
-spotube-bin;aur;music browser download
-stacer-bin;community;cleaner
-sxhkd;community;command shortucts
-systemctl enable docker.service;script;programming initialize
-systemctl enable sshd;script;initialize
-tela-circle-icon-theme-nord;aur;theme
-thunar;community;file-manager
-thunderbird;community;mail manager
-tint2;community;theme
-tldr;community;command helper
-tokei;community;programming command
-tor-browser-bin;aur;browser
-typora-free;aur;programming editor
-ufw;community;command
-usermod -aG docker $USER;script;programming initialize
-variety;community;theme
-virtualbox;community;programming
-visual-studio-code-bin;community;programming
-vlc;community;command manager video
-vysor-bin;aur;manager
-warp-terminal;aur;terminal
-xclip;community;command copy
-xfce4-clipman-plugin;community;copy
-yq;community;command converter
-yt-dlp;community;command download
-zoxide-git;aur;command shell
-zsh;community;command shell
-playerctl;community;command media
-xdotool;community;command
+Name                            ;Repository ;Tags
+betterlockscreen                ;community  ;theme
+bat                             ;community  ;programming command
+bat-extras                      ;community  ;programming command
+bitwarden                       ;community  ;password
+bleachbit                       ;community  ;cleaner
+brave-bin                       ;community  ;browser
+btop                            ;community  ;command
+calibre                         ;community  ;browser
+choose                          ;community  ;command
+chromium                        ;community  ;browser
+cmake                           ;community  ;programming command
+composer                        ;community  ;programming command php
+conky                           ;community  ;theme
+deno                            ;community  ;programming command node
+docker                          ;community  ;programming command
+docker-compose                  ;community  ;programming command docker
+eza                             ;community  ;command theme
+ferdium                         ;aur        ;chat
+figlet                          ;community  ;command theme
+font-manager-git                ;community  ;font
+gimp                            ;community  ;editor image
+sourcegit                       ;aur        ;programming command
+gnome-calculator                ;community  ;tools
+gnome-clocks                    ;community  ;tools
+hugo                            ;community  ;programming command go
+jq                              ;community  ;command converter
+kitty                           ;community  ;terminal
+kodi                            ;community  ;media manager
+kvantum-theme-qogir-git         ;community  ;theme
+libreoffice-fresh-es            ;community  ;editor
+megasync                        ;community  ;tools
+mpv                             ;community  ;video
+neofetch                        ;community  ;command theme
+noto-fonts-emoji                ;community  ;font theme
+obsidian                        ;community  ;editor
+openbox                         ;community  ;windows-manager theme
+openssh                         ;community  ;command ssh shell
+pamac-all-git                   ;aur        ;software
+paru                            ;community  ;command software
+pdftk                           ;community  ;command converter
+peco                            ;community  ;command finder
+picom                           ;community  ;command theme
+plank                           ;community  ;theme
+pnpm                            ;community  ;programming command node
+pragha                          ;community  ;manager music
+qogir-gtk-theme-git             ;community  ;theme
+qtile                           ;community  ;windows-manager theme
+remmina                         ;community  ;programming
+retroarch-git                   ;aur        ;game manager
+rofi                            ;community  ;tools
+rofi-bluetooth-git              ;aur        ;command rofi
+rofi-emoji                      ;community  ;extension
+rofi-file-browser-extended-git  ;aur        ;extension
+simple-scan                     ;community  ;tools
+spotube-bin                     ;aur        ;music browser download
+stacer-bin                      ;community  ;cleaner
+sxhkd                           ;community  ;command shortucts
+systemctl enable docker.service ;script     ;programming initialize
+systemctl enable sshd           ;script     ;initialize
+tela-circle-icon-theme-git      ;community  ;theme
+thunar                          ;community  ;file-manager
+thunderbird                     ;community  ;mail manager
+tint2                           ;community  ;theme
+tldr                            ;community  ;command helper
+tokei                           ;community  ;programming command
+tor-browser-bin                 ;aur        ;browser
+typora-free                     ;aur        ;programming editor
+ufw                             ;community  ;command
+usermod -aG docker $USER        ;script     ;programming initialize
+variety                         ;community  ;theme
+virtualbox                      ;community  ;programming
+visual-studio-code-bin          ;community  ;programming
+vlc                             ;community  ;command manager video
+vysor-bin                       ;aur        ;manager
+xclip                           ;community  ;command copy
+xfce4-clipman-plugin            ;community  ;copy
+yq                              ;community  ;command converter
+yt-dlp                          ;community  ;command downloads
+zoxide-git                      ;aur        ;command shell
+zsh                             ;community  ;command shell
+playerctl                       ;community  ;command media
+xdotool                         ;community  ;command
+transmission-gtk                ;community  ;downloads
+chsh -s $(which zsh)            ;script     ;programming initialize
