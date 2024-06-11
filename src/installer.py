@@ -25,19 +25,6 @@ def update():
     )
 
 
-def install_necessary():
-    """
-    The function `install_necessary` installs necessary packages, formats packages, and enables snapd socket.
-    """
-    for s in ["git", "paru", "snapd"]:
-        package_install(s, read_installation_command("distro"))
-    subprocess.run(
-        "sudo systemctl enable --now snapd.socket && sudo ln -s /var/lib/snapd/snap /snap",
-        shell=True,
-        check=True,
-    )
-
-
 def package_install(software: str, repository: str):
     """
     The function `package_install` checks if a software package is installed and installs it from a
