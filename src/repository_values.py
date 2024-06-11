@@ -5,7 +5,7 @@ class RepositoryValues:
 
     DISTRO = ["distro", "community", "extra"]
     COMPILABLE = ["aur", "snap", "flatpack"]
-    SCRIPT = ["script"]
+    SCRIPT = ["script", "user"]
     ALL = DISTRO + COMPILABLE + SCRIPT
 
 

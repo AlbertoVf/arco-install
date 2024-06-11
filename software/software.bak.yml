@@ -1,9 +1,10 @@
 Repository:
-  aur       : paru -S
+  aur       : paru -S --noredownload
   check     : sudo pacman -Qq
-  community : sudo pacman -Sy --noconfirm --needed
-  distro    : sudo pacman -Sy --noconfirm --needed
-  extra     : sudo pacman -Sy --noconfirm --needed
+  community : sudo pacman -Syq --noconfirm --needed
+  distro    : sudo pacman -Syq --noconfirm --needed
+  extra     : sudo pacman -Syq --noconfirm --needed
   script    : sudo
+  user      : ''
   snap      : sudo snap install
   flatpack  : sudo flatpak install
