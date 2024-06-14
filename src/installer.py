@@ -90,7 +90,10 @@ def export_scripts(repositories: list[RepositoryValues]):
     def _export_scripts(repository: str):
         sf = []
         for s in software:
-            sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")
+            if command != None:
+                sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")
+            else:
+                sf.append(f"{s[SoftwareKeys.NAME]}\n")
         return sf
 
     with open(sh_export_script, "w") as f:

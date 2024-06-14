@@ -1,10 +1,12 @@
 Repository:
-  aur       : paru -S --noredownload
+  # generic script for all distros
+  script   : sudo
+  user     : null
+  snap     : sudo snap install
+  flatpack : sudo flatpak install
+  # specific scripts for arch-derivated distros
   check     : sudo pacman -Qq
+  aur       : paru -S --noredownload
   community : sudo pacman -Syq --noconfirm --needed
   distro    : sudo pacman -Syq --noconfirm --needed
   extra     : sudo pacman -Syq --noconfirm --needed
-  script    : sudo
-  user      : ''
-  snap      : sudo snap install
-  flatpack  : sudo flatpak install
