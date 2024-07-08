@@ -32,8 +32,8 @@ def main():
     if all(value == False for value in vars(args).values()):
         parser.print_help()
         return
-    else:
-        export_to_file()
+    # else:
+    #     export_to_file()
 
     if args.export:
         export_scripts(rv.ALL)

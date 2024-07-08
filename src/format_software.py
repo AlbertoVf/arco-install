@@ -41,4 +41,4 @@ def export_to_file():
     yaml_file_path = software_output
     data = safe_load(open(repository_input, "r"))
     data[SoftwareKeys.SOFTWARE] = read_software_list()
-    dump(data, open(yaml_file_path, "w"), default_flow_style=False)
+    dump(data, open(yaml_file_path, "w"), default_flow_style=True)

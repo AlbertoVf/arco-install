@@ -176,5 +176,4 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 software/*
-!software/software.bak.yml
-!software/software.csv
+!software/software.yml
