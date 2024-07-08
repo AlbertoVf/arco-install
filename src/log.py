@@ -1,6 +1,6 @@
 from colorama import init, Fore, Style
 from datetime import datetime
-from .conf import sh_export_script
+from .repository_values import sh_export_script
 
 init()
 
@@ -28,28 +28,6 @@ def console_log_message(software: str, status: str, error: str = "") -> str:
     msg = STATUS[status]
     print(msg)
     return msg
-
-
-def console_extra_log(msg: str):
-    """
-    The `console_extra_log` function is a decorator that adds an extra log message to the console after a function is executed.
-
-    Args:
-      msg: The `msg` parameter in the `console_extra_log` function is a message that will be printed to the console when the decorated function is called.
-
-    Returns:
-      The `decorator_function` is being returned.
-    """
-
-    def decorator_function(func):
-        def wrapper(*args, **kwargs):
-            result = func(*args, **kwargs)
-            print(msg)
-            return result
-
-        return wrapper
-
-    return decorator_function
 
 
 def log_date(msg: str):

@@ -1,8 +1,7 @@
 import subprocess
 from .format_software import export_to_file, read_software_data as sd
 from .log import log_date, log, console_log_message
-from .repository_values import RepositoryValues, SoftwareKeys
-from .conf import sh_export_script
+from .repository_values import RepositoryValues, SoftwareKeys,sh_export_script
 
 read_installation_command = lambda repository: sd()[SoftwareKeys.REPOSITORY][repository]
 
@@ -25,36 +24,6 @@ def update():
     )
 
 
-def package_install(software: str, repository: str):
-    """
-    The function `package_install` checks if a software package is installed and installs it from a
-    specified repository if it is not already installed.
-
-    Args:
-      software (str): The `software` parameter in the `package_install` function refers to the name of the software package that you want to install or check if it is already installed.
-      repository (str): The `repository` parameter in the `package_install` function is expected to be a string that represents the repository from which the software package will be installed. It seems like the repository string is split by spaces to form a command for installation.
-    """
-
-    def is_installed(software):
-        command = read_installation_command("check").split(" ") + [software]
-
-        status = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return status.returncode == 0
-
-    command = repository.split(" ") + [software]
-
-    if is_installed(software):
-        a = console_log_message(software, "INSTALLED")
-    else:
-        try:
-            console_log_message(software, "NOT INSTALLED")
-            subprocess.run(command, check=True)
-            a = console_log_message(software, "INSTALLED")
-        except subprocess.CalledProcessError as e:
-            a = console_log_message(software, "ERROR", str(e))
-    log(a)
-
-
 def install(repository: str):
     """
     The `install` function installs packages from a specified repository using a given installation
@@ -63,6 +32,38 @@ def install(repository: str):
     Args:
       repository (str): The `repository` parameter is a string that represents the name or location of the software repository from which packages are to be installed.
     """
+
+    def package_install(software: str, repository: str):
+        """
+        The function `package_install` checks if a software package is installed and installs it from a
+        specified repository if it is not already installed.
+
+        Args:
+        software (str): The `software` parameter in the `package_install` function refers to the name of the software package that you want to install or check if it is already installed.
+        repository (str): The `repository` parameter in the `package_install` function is expected to be a string that represents the repository from which the software package will be installed. It seems like the repository string is split by spaces to form a command for installation.
+        """
+
+        def is_installed(software):
+            command = read_installation_command("check").split(" ") + [software]
+
+            status = subprocess.run(
+                command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
+            return status.returncode == 0
+
+        command = repository.split(" ") + [software]
+
+        if is_installed(software):
+            a = console_log_message(software, "INSTALLED")
+        else:
+            try:
+                console_log_message(software, "NOT INSTALLED")
+                subprocess.run(command, check=True)
+                a = console_log_message(software, "INSTALLED")
+            except subprocess.CalledProcessError as e:
+                a = console_log_message(software, "ERROR", str(e))
+        log(a)
+
     log_date(f"Installing {repository} packages")
     command = read_installation_command(repository)
     software = read_software_list(repository)

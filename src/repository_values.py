@@ -1,8 +1,10 @@
-class RepositoryValues:
-    """
-    The class `RepositoryValues` defines lists of different types of repositories who use the same installation command
-    """
+from dotenv import load_dotenv
+from os import getenv as env
 
+load_dotenv()
+
+
+class RepositoryValues:
     DISTRO = ["distro", "community", "extra"]
     COMPILABLE = ["aur", "snap", "flatpack"]
     SCRIPT = ["script", "user"]
@@ -10,11 +12,15 @@ class RepositoryValues:
 
 
 class SoftwareKeys:
-    """
-    The class `SoftwareKeys` defines constants for keys related to software information.
-    """
-
     REPOSITORY = "Repository"
     NAME = "Name"
     TAGS = "Tags"
     SOFTWARE = "Software"
+
+
+software_file_data = env("SOFTWARE_CSV")
+repository_input = env("BAK_FILE")
+software_output = env("EXPORT_YML")
+json_software_output = env("EXPORT_JSON")
+sh_export_script = env("EXPORT_SCRIPT")
+log_output = env("LOG")
