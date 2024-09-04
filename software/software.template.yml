@@ -1,0 +1,11 @@
+Repository:
+  aur       : paru -S --noredownload
+  check     : sudo pacman -Qq
+  community : sudo pacman -Syq --noconfirm --needed
+  distro    : sudo pacman -Syq --noconfirm --needed
+  extra     : sudo pacman -Syq --noconfirm --needed
+  flatpack  : sudo flatpak install
+  script    : sudo
+  snap      : sudo snap install
+  user      : null
+Software:
