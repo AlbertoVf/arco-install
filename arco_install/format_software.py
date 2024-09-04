@@ -13,12 +13,12 @@ def read_software_list() -> list:
     """
     data_csv = []
     with open(software_input, "r") as f:
-        csv_reader = csv.DictReader(f, delimiter=";")
+        csv_reader = csv.DictReader(f, delimiter=SoftwareKeys.DELIMITER)
         for row in csv_reader:
             row = {
                 key.strip(): value.strip()
                 for key, value in row.items()
-                if key != "Tags"
+                if key != SoftwareKeys.TAGS
             }
             data_csv.append(row)
     return data_csv

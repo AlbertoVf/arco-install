@@ -13,9 +13,10 @@ class SoftwareKeys:
     The class `SoftwareKeys` defines constants for keys related to software information.
     """
     REPOSITORY = "Repository"
-    NAME = "Name"
-    TAGS = "Tags"
-    SOFTWARE = "Software"
+    NAME       = "Name"
+    TAGS       = "Tags"
+    SOFTWARE   = "Software"
+    DELIMITER  = ";"
 
 
 software_input  = "software/software.csv"
