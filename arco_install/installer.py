@@ -3,7 +3,7 @@ from arco_install.format_software import read_software_data as read_software
 from arco_install.log import log_date, log, console_log_message
 from arco_install import RepositoryValues, SoftwareKeys, sh_output
 
-read_installation_command = lambda repository: read_software()[SoftwareKeys.REPOSITORY][repository]
+read_installation_command = lambda repository: read_software().get(SoftwareKeys.REPOSITORY, {}).get(repository, {})
 
 read_software_list = lambda repository: [
     software
@@ -17,7 +17,11 @@ def update():
     """
     Run subprocess to update mirrorlist with reflector
     """
-    subprocess.run( "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist", shell=True, check=True, )
+    subprocess.run(
+        "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist",
+        shell=True,
+        check=True,
+    )
 
 
 def install(repository: str):
@@ -25,6 +29,7 @@ def install(repository: str):
     Install the software included on `repository`.
     Check if it is installed. Write log file
     """
+
     def package_install(software: str, repository: str):
         def is_installed(software):
             command = read_installation_command("check").split(" ") + [software]
@@ -45,7 +50,9 @@ def install(repository: str):
                 log(f"INFO: The package {software} has been installed correctly")
             except subprocess.CalledProcessError as e:
                 console_log_message(software, "ERROR")
-                log( f"ERROR: The package {software} could not be installed :: `{repository} {software}`" )
+                log(
+                    f"ERROR: The package {software} could not be installed :: `{repository} {software}`"
+                )
 
     log_date(f"Installing {repository} packages")
     command = read_installation_command(repository)
@@ -66,6 +73,7 @@ def export_scripts(repositories: list[RepositoryValues]):
     """
     Build sh file to run by terminal
     """
+
     @log_date("Export to bash-script")
     def _export_scripts(repository: str):
         sf = []

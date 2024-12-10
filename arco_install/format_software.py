@@ -1,9 +1,9 @@
 import datetime, csv
 from yaml import safe_load as safe, dump
 from arco_install.log import log_date
-from arco_install import software_output, software_input, SoftwareKeys
+from arco_install import software_output,software_temp, software_input, SoftwareKeys
 
-read_software_data = lambda: safe(open(software_output, "r"))
+read_software_data:dict = lambda: safe(open(software_output, "r"))
 
 
 @log_date("Read Software list")
@@ -29,6 +29,6 @@ def export_to_file():
     """
     Build software file from `read_software_list()`
     """
-    data = safe(open(software_output, "r"))
+    data = safe(open(software_temp, "r"))
     data[SoftwareKeys.SOFTWARE] = read_software_list()
     dump(data, open(software_output, "w"), default_flow_style=False)

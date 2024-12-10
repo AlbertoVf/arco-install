@@ -8,4 +8,5 @@ Repository:
   script    : sudo
   snap      : sudo snap install
   user      : null
+  python    : pipx
 Software:
