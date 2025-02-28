@@ -1,4 +1,4 @@
-import datetime, csv
+import csv
 from yaml import safe_load as safe, dump
 from arco_install.log import log_date
 from arco_install import software_output,software_temp, software_input, SoftwareKeys

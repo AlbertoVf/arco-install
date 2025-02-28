@@ -1,9 +1,13 @@
 import subprocess
 from arco_install.format_software import read_software_data as read_software
-from arco_install.log import log_date, log, console_log_message
-from arco_install import RepositoryValues, SoftwareKeys, sh_output
+from arco_install.log import log_date, console_log_message
+from arco_install import RepositoryValues, SoftwareKeys, sh_output, log
 
-read_installation_command = lambda repository: read_software().get(SoftwareKeys.REPOSITORY, {}).get(repository, {})
+read_installation_command = (
+    lambda repository: read_software()
+    .get(SoftwareKeys.REPOSITORY, {})
+    .get(repository, {})
+)
 
 read_software_list = lambda repository: [
     software
@@ -12,30 +16,18 @@ read_software_list = lambda repository: [
 ]
 
 
-@log_date("Updating packages")
+@log_date("update mirrorlist with reflector")
 def update():
-    """
-    Run subprocess to update mirrorlist with reflector
-    """
-    subprocess.run(
-        "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist",
-        shell=True,
-        check=True,
-    )
+    subprocess.run( "sudo reflector -f 20 -l 15 -n 10 --save /etc/pacman.d/mirrorlist", shell=True, check=True, )
 
 
+@log_date("Install the software")
 def install(repository: str):
-    """
-    Install the software included on `repository`.
-    Check if it is installed. Write log file
-    """
 
     def package_install(software: str, repository: str):
         def is_installed(software):
             command = read_installation_command("check").split(" ") + [software]
-            status = subprocess.run(
-                command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-            )
+            status = subprocess.run( command, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
             return status.returncode == 0
 
         command = repository.split(" ") + [software]
@@ -50,9 +42,7 @@ def install(repository: str):
                 log(f"INFO: The package {software} has been installed correctly")
             except subprocess.CalledProcessError as e:
                 console_log_message(software, "ERROR")
-                log(
-                    f"ERROR: The package {software} could not be installed :: `{repository} {software}`"
-                )
+                log( f"ERROR: The package {software} could not be installed :: `{repository} {software}`" )
 
     log_date(f"Installing {repository} packages")
     command = read_installation_command(repository)
@@ -61,19 +51,14 @@ def install(repository: str):
         package_install(s[SoftwareKeys.NAME], command)
 
 
+@log_date("Clear cache")
 def clear_cache():
-    """
-    Clear cache
-    """
     subprocess.run(["paru", "-Scc"], check=True)
     subprocess.run(["rm", "-rf", "/var/cache/snapd/*"], check=True)
 
 
+@log_date("Build sh file to run by terminal")
 def export_scripts(repositories: list[RepositoryValues]):
-    """
-    Build sh file to run by terminal
-    """
-
     @log_date("Export to bash-script")
     def _export_scripts(repository: str):
         sf = []
