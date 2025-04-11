@@ -1,34 +1,24 @@
-import csv
-from yaml import safe_load as safe, dump
-from arco_install.log import log_date
-from arco_install import software_output,software_temp, software_input, SoftwareKeys
-
-read_software_data:dict = lambda: safe(open(software_output, "r"))
+from yaml import safe_load as safe
+from arco_install import software_input, SoftwareKeys
 
 
-@log_date("Read Software list")
-def read_software_list() -> list:
-    """
-    Read software data from from csv and save
-    """
-    data_csv = []
-    with open(software_input, "r") as f:
-        csv_reader = csv.DictReader(f, delimiter=SoftwareKeys.DELIMITER)
-        for row in csv_reader:
-            row = {
-                key.strip(): value.strip()
-                for key, value in row.items()
-                if key != SoftwareKeys.TAGS
-            }
-            data_csv.append(row)
-    return data_csv
+def read_software() -> dict:
+    data = safe(open(software_input, "r"))
+    ns=[]
+    for s,r in data[SoftwareKeys.SOFTWARE].items():
+        ns.append({SoftwareKeys.NAME: s, SoftwareKeys.REPOSITORY: r})
+    data[SoftwareKeys.SOFTWARE] = ns
+    return data
 
 
-@log_date("Software file updated")
-def export_to_file():
-    """
-    Build software file from `read_software_list()`
-    """
-    data = safe(open(software_temp, "r"))
-    data[SoftwareKeys.SOFTWARE] = read_software_list()
-    dump(data, open(software_output, "w"), default_flow_style=False)
+read_installation_command = (
+    lambda repository: read_software()
+    .get(SoftwareKeys.REPOSITORY, {})
+    .get(repository, {})
+)
+
+read_software_list = lambda repository: [
+    software.get('Name')
+    for software in read_software()[SoftwareKeys.SOFTWARE]
+    if software[SoftwareKeys.REPOSITORY] == repository
+]

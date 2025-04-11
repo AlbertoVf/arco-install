@@ -1,7 +1,6 @@
 import argparse
-from arco_install.format_software import export_to_file
-from arco_install.installer import install, clear_cache, update, export_scripts
 import arco_install
+from arco_install.installer import install, clear_cache, update, export_scripts
 
 
 def main():
@@ -13,7 +12,6 @@ def main():
     parser.add_argument( "-e", "--export", action="store_true", help="Build bashscript installation file" )
     args = parser.parse_args()
 
-    export_to_file()
     if all(value == False for value in vars(args).values()):
         parser.print_help()
         return

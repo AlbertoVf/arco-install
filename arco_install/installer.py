@@ -1,19 +1,6 @@
 import subprocess
-from arco_install.format_software import read_software_data as read_software
-from arco_install.log import log_date, console_log_message
-from arco_install import RepositoryValues, SoftwareKeys, sh_output, log
-
-read_installation_command = (
-    lambda repository: read_software()
-    .get(SoftwareKeys.REPOSITORY, {})
-    .get(repository, {})
-)
-
-read_software_list = lambda repository: [
-    software
-    for software in read_software()[SoftwareKeys.SOFTWARE]
-    if software[SoftwareKeys.REPOSITORY] == repository
-]
+from arco_install.format_software import read_installation_command, read_software_list
+from arco_install import RepositoryValues, sh_output, log, log_date, console_log_message
 
 
 @log_date("update mirrorlist with reflector")
@@ -48,7 +35,7 @@ def install(repository: str):
     command = read_installation_command(repository)
     software = read_software_list(repository)
     for s in software:
-        package_install(s[SoftwareKeys.NAME], command)
+        package_install(s, command)
 
 
 @log_date("Clear cache")
@@ -59,18 +46,14 @@ def clear_cache():
 
 @log_date("Build sh file to run by terminal")
 def export_scripts(repositories: list[RepositoryValues]):
-    @log_date("Export to bash-script")
-    def _export_scripts(repository: str):
+    def _export_scripts():
         sf = []
         for s in software:
-            if command != None:
-                sf.append(f"{command} {s[SoftwareKeys.NAME]}\n")
-            else:
-                sf.append(f"{s[SoftwareKeys.NAME]}\n")
+            sf.append(f"{command} {s}\n" if command != None else f"{s}\n")
         return sf
 
     with open(sh_output, "w") as f:
         for repository in repositories:
             command = read_installation_command(repository)
             software = read_software_list(repository)
-            f.writelines(_export_scripts(repository))
+            f.writelines(_export_scripts())
