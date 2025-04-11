@@ -9,38 +9,16 @@ Software installer to [Arcolinux](https://arcolinux.com/).
 
 > [!IMPORTANT]
 > Configure filepath on `arco_install/__init__.py`
-
-> [!CAUTION]
-> Rename `software.template.yml` to `software.yml` OR replace filepath
+> Rename `software.template.yml` to `software.yml` OR replace `software_input`
 
 ### Input file
 
-The default software is a csv file with an header row `Name;Repository;Tags`, separated by `;`
+The default software is a yaml file with `Repository` and `Software`
 
-- `Name`: Software name
-- `Repository`: Software repository where it is included
-- `Tags`: keyword, tag used to categorize the software
+- `Repository`: repository name and command installation software
+- `Software`:: list of software with `package_name`: `repository_name`
 
-![software csv](docs/software_format_csv.png)
-
-### Output
-
-File where read software and commands.
-
-![yaml file](docs/yaml_file.png)
-
-#### Repository
-
-- `repository_name`: repository where the software is included
-- `repository_command_install`: command to install the software
-
-![repository format](docs/yaml_file_repository.png)
-
-#### Software
-
-List from csv with the software name and the repository
-
-![software format](docs/yaml_file_software.png)
+![software csv](docs/software_format.png)
 
 ## Command line usage
 
